@@ -2,7 +2,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo base_url('india')?>">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-user"></i>
             </div>
@@ -14,7 +14,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="<?php echo base_url('india')?>">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -35,9 +35,9 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Enter Invoice</h6>
-                    <a class="collapse-item" href="#">Add</a>
-                    <a class="collapse-item" href="#">Edit</a>
-                    <a class="collapse-item" href="#">Upload Multiple</a>
+                    <a class="collapse-item" href="<?php echo base_url('add-invoice')?>">Add</a>
+                    <a class="collapse-item" href="<?php echo base_url('edit-invoice')?>">Edit</a>
+                    <a class="collapse-item" href="<?php echo base_url('upload-multiple-invoce')?>">Upload Multiple</a>
 
                 </div>
             </div>

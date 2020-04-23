@@ -24,6 +24,32 @@ class IndiaControl extends CI_Controller {
 		$this->load->view('india/layout/sidenavbar');
 		$this->load->view('india/layout/index');
 		$this->load->view('india/layout/footer');
-    }
+	}
+	
+	public function addinvoice()
+	{
+		$this->load->view('india/layout/header');
+		$this->load->view('india/layout/sidenavbar');
+		$this->load->view('india/pages/add-invoice');
+		$this->load->view('india/layout/footer');
+	}
+
+	public function editinvoce()
+	{
+		$this->load->view('india/layout/header');
+		$this->load->view('india/layout/sidenavbar');
+		$this->load->view('india/pages/add-invoice');
+		$this->load->view('india/layout/footer');
+	}
+
+	public function uploadmultipleinvoce()
+	{
+		$this->load->view('india/layout/header');
+		$this->load->view('india/layout/sidenavbar');
+		$this->load->view('india/pages/upload-multiple-invoce');
+		$this->load->view('india/layout/footer');
+	}
+
+
 
 }
