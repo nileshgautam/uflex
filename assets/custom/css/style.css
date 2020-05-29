@@ -1,0 +1,53 @@
+.w-350 {
+    width: 350px !important;
+}
+
+.w-100 {
+    width: 100px !important;
+}
+
+.w-200 {
+    width: 100px !important;
+}
+
+.upload-form{
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.btn-flx{
+    display: flex !important;
+    justify-content: center !important;
+    margin: auto !important;
+    margin-top: 10px !important;
+
+}
+
+.inp-file{
+    display: flex !important;
+    justify-content: center !important;
+    margin: auto !important;
+}
+
+.btn-invoice{
+    float:right;
+    display: inline-block !important;
+}
+.ib{
+    display: inline-block !important;
+}
+
+.btn-container-add-inv{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-space{
+    display: flex;
+    justify-content: space-evenly;
+    margin-inline-end: 5px;
+}
+
+.no-border{
+    border: none !important;
+}

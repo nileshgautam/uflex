@@ -1,5 +1,5 @@
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo base_url('india')?>">
@@ -35,9 +35,11 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Enter Invoice</h6>
-                    <a class="collapse-item" href="<?php echo base_url('add-invoice')?>">Add</a>
-                    <a class="collapse-item" href="<?php echo base_url('edit-invoice')?>">Edit</a>
-                    <a class="collapse-item" href="<?php echo base_url('upload-multiple-invoce')?>">Upload Multiple</a>
+                    
+                    <a class="collapse-item" href="<?php echo base_url('invoice')?>">Invoice</a>
+                    <!-- <a class="collapse-item" href="<?php echo base_url('add-invoice')?>">Add</a> -->
+                    <!-- <a class="collapse-item" href="<?php echo base_url('edit-invoice')?>">Edit</a>
+                    <a class="collapse-item" href="<?php echo base_url('upload-multiple-invoce')?>">Upload Multiple</a> -->
 
                 </div>
             </div>
@@ -131,7 +133,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn btn-info" type="button">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
@@ -152,7 +154,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
+                                        <button class="btn btn-info" type="button">
                                             <i class="fas fa-search fa-sm"></i>
                                         </button>
                                     </div>
@@ -175,7 +177,7 @@
                             </h6>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="mr-3">
-                                    <div class="icon-circle bg-primary">
+                                    <div class="icon-circle bg-info">
                                         <i class="fas fa-file-alt text-white"></i>
                                     </div>
                                 </div>

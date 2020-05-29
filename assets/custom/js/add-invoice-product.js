@@ -22,18 +22,18 @@ $(function () {
         productTable.empty();
         for (let i = 0; i < len; i++) {
             let rowTemplate = $(` <tr>
-    <td> <input type="text" class="form-control product-code" id="produuct-code" placeholder="Enter product code" name="productCode${list[i].row_id}" value="${list[i].producCode}"></td>
+    <td> <input type="text" class="form-control product-code no-border" id="produuct-code" placeholder="Code" name="productCode${list[i].row_id}" value="${list[i].producCode}"></td>
 
-    <td> <textarea name="producDetails${list[i].row_id}" id="product-details" cols="" rows=""  class="form-control product-details" placeholder="Enter product details">${list[i].producDetails}</textarea></td>
+    <td> <textarea name="producDetails${list[i].row_id}" id="product-details" cols="" rows=""  class="form-control product-details w-350 no-border" placeholder="Enter product details">${list[i].producDetails}</textarea></td>
 
-    <td> <input type="text" class="form-control product-quantity" id="product-quantity" name="product-quantity${list[i].row_id}" placeholder="Enter product quantity" value="${list[i].productQuantity}"></td>
+    <td> <input type="number" min=0 class="form-control no-border product-quantity" id="product-quantity" name="product-quantity${list[i].row_id}" placeholder="Quantity" value="${list[i].productQuantity}"></td>
 
-    <td> <input type="text" class="form-control product-rate" id="product-rate" name="product-rate${list[i].row_id}" placeholder="Enter product rate" value="${list[i].productRate}"></td>
+    <td><input type="number" min=0 class="form-control no-border product-rate" id="product-rate" name="product-rate${list[i].row_id}" placeholder="00.00" value="${list[i].productRate}"></td>
 
-    <td><input type="text" class="form-control product-amount" id="product-amount" name="product-amount${list[i].row_id}" placeholder="Enter product amount" value="${list[i].productAmount}"></td>
+    <td><input type="number" min=0 class="form-control no-border product-amount w-100" id="product-amount" name="product-amount${list[i].row_id}" placeholder="00.00" value="${list[i].productAmount}"></td>
 
     <td>
-    <a href="#" class="btn btn-danger delete_row btn-block" data-row-id="${list[i].row_id}" >
+    <a href="#" class="btn btn-danger delete_row" data-row-id="${list[i].row_id}" >
     <i class="fa fa-trash"></i>
     </a>
 </td>
@@ -73,21 +73,6 @@ $(function () {
         }
     }
 
-    function addoption() {
-        let Input = $(this);
-        let row_id = Input.data('id');
-        let item = selected_container_list.find((item) => item.item_id == row_id);
-        option_id++;
-        var options_ob = {
-            optionsid: option_id,
-            option_key: "",
-            option_value: ""
-        };
-        selected_options_container_list.push(options_ob);
-        item['other_info'] = selected_options_container_list;
-        console.log(selected_container_list);
-        optionList(selected_options_container_list, selected_options_container);
-    }
 
     function deleterow_click() {
         let delete_row = $(this);
@@ -131,8 +116,64 @@ $(function () {
     // console.log(objarr);
 
     $('.save-data').click(function () {
-        console.log(objarr);
+        let error = false;
+        let invoice = $('#invoice-number').val();
+        let doi = $('#invoice-date').val();  //date of invoice (doi)
+        let productList = objarr;
+        // let invoceResponce = validateIsEmpty(invoice);
+        let dateResponce = validateIsEmpty(doi);
+
+        if (invoice == '') {
+            error = true;
+            // invoice.focus();
+            $('#invoice-number').focus();
+            $('#invoice-number').css("border", '2px solid red');
+        }
+        if (doi == '') {
+            error = true;
+            // doi.focus();
+            $('#invoice-date').focus();
+            $('#invoice-date').css('border', '2px solid red')
+        }
+        if (!error) {
+            if (confirm("Are you sure want to submit ?")) {
+                let url = BaseUrl + 'submit-invoice';
+                let data = {
+                    invoiceNumber: invoice,
+                    dateOfinvoice: doi,
+                    products: productList
+                }
+                $.post(url, data, function (data, status) {
+                    let res = JSON.parse(data);
+                    showAlert(res.messages, res.type);
+                    setTimeout(()=>{
+                        location.reload();
+                    },1000);
+                });
+            }
+        }
+        //   console.log(objarr);
     });
+
+    // date picker function ot set date format 
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        startDate: '-3d',
+        defaultViewDate: true
+    });
+
+
+    const validateIsEmpty = (key) => {
+        let error = false;
+        if (key == '') {
+            error = true;
+        }
+        else {
+            error = false;
+        }
+        return error;
+    }
+
 
 });
 

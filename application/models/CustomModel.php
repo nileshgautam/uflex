@@ -8,7 +8,17 @@ class CustomModel extends ci_model
         $insert_id = $this->db->insert_id();
         return $this->db->affected_rows() ? $insert_id : FALSE;
     }
-    public function selectAllWhere($tableName = null, $condition = null)
+
+    // inserts in batch
+
+    // insertBatch
+    public function insertBatch($table, $data)
+    {
+        $this->db->insert_batch($table, $data);
+        return $this->db->affected_rows() ? true : false;
+    }
+
+    public function getWhere($tableName = null, $condition = null)
     {
         $this->db->where($condition);
         $query = $this->db->get($tableName)->result_array();
@@ -17,7 +27,7 @@ class CustomModel extends ci_model
     // function to extract all data form data base by table name short by given 
     public function selectAll($tableName = null, $order_col = null)
     {
-        $this->db->order_by($order_col, "asc");
+        $this->db->order_by($order_col, "dec");
         $result = $this->db->get($tableName)->result_array();
 
         return $this->db->affected_rows() ? $result : FALSE;

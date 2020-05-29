@@ -20,16 +20,21 @@
     const BASEURL = "<?php echo base_url() ?>";
   </script>
 
+<style>
+  .mt-55{
+    margin-top:55px !important;
+  }
+</style>
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-info">
 
   <div class="container">
 
     <!-- Outer Row -->
     <div class="row justify-content-center">
 
-      <div class="col-xl-10 col-lg-12 col-md-9">
+      <div class="col-xl-10 col-lg-12 col-md-9 mt-55">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
           <div class="card-body p-0">
@@ -54,8 +59,7 @@
                         <label class="custom-control-label" for="remember_me">Remember Me</label>
                       </div>
                     </div>
-                    <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
-                    <hr>
+                    <input type="submit" value="Login" class="btn btn-info btn-user btn-block">
                   </form>
                   <hr>
                   <div class="text-center">
