@@ -43,7 +43,6 @@ class IndiaControl extends CI_Controller
 	public function invoice()
 	{
 		$result['invoice']=$this->CustomModel->selectAll('master_invoice');
-
 		$this->load->view('india/layout/header');
 		$this->load->view('india/layout/sidenavbar');
 		$this->load->view('india/pages/invoice',$result);
@@ -76,7 +75,6 @@ class IndiaControl extends CI_Controller
 	{
 		// echo '<pre>';
 		// productlist
-		$timestamp = date("Y-m-d H:i:s");
 
 		if (!empty($_POST)) {
 
@@ -84,6 +82,8 @@ class IndiaControl extends CI_Controller
 			$tableName = 'master_invoice';
 			$condition = array('invoice_number' => $invoiceNumber);
 			$result = $this->CustomModel->getWhere($tableName, $condition);
+			$timestamp = date("Y-m-d H:i:s");
+
 			if ($result > 0) {
 				json_encode(array('messages' => 'Invoice already exist', 'type' => 'worning'));
 			} else {
@@ -103,8 +103,10 @@ class IndiaControl extends CI_Controller
 							'product_qty' => $productlist[$i]['productQuantity'],
 							'product_rate' => $productlist[$i]['productRate'],
 							'product_amount' => $productlist[$i]['productAmount'],
-							'entered_by' => $_SESSION['userInfo']['id'],
-							'enerd_date_time' => $timestamp
+							'entered_by' => $_SESSION['userInfo']['username'],
+							'entery_datetime' => $timestamp,
+							'send_status' => $timestamp,
+
 
 						);
 						array_push($rows, $data);

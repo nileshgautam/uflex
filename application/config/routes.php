@@ -66,6 +66,8 @@ $route['add-invoice'] = 'IndiaControl/addinvoice';
 $route['edit-invoice'] = 'IndiaControl/editinvoce';
 $route['upload-multiple-invoce'] = 'IndiaControl/uploadmultipleinvoce';
 $route['submit-invoice'] = 'IndiaControl/postinvoice';
+$route['invoice-format'] = 'sample_file/invoceUploadformat.csv';
+
 
 
 

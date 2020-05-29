@@ -51,3 +51,11 @@
 .no-border{
     border: none !important;
 }
+
+.ml-25{
+    display: inline-block;
+    margin-left: 26%;
+}
+.ml-25:hover{
+    color: #36b9cc;
+}

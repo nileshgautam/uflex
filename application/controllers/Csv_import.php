@@ -12,7 +12,8 @@ class Csv_import extends CI_Controller
 		date_default_timezone_set('Asia/Kolkata');
 
 		$this->load->model('csv_import_model');
-		$this->load->library('csvimport');
+		$this->load->model('CustomModel');
+		// $this->load->library('csvimport');
 		// $this->load->helper('datefilter');
 		if (!isset($_SESSION['userInfo'])) {
 			$this->session->sess_destroy();
@@ -20,19 +21,8 @@ class Csv_import extends CI_Controller
 		}
 	}
 
-	function insert_invoice()
-	{
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			if (isset($_POST['invoice'])) {
-				echo '<pre>';
-				print_r($_POST['invoice']);
-				// $this->csv_import_model->insert($data);
-			}
-		}
 
-		// echo $output;
-	}
-
+	// Function to import data from excel/csv
 	function import()
 	{
 
@@ -75,6 +65,7 @@ class Csv_import extends CI_Controller
 			}
 
 			// $file_data = $this->csvimport->get_array($_FILES["csv_file"]["tmp_name"]);
+
 			for ($i = 2; $i <= count($inv_arr); $i++) {
 				$data[] = array(
 					'invoice_number' => $inv_arr[$i]['A'],
@@ -84,9 +75,65 @@ class Csv_import extends CI_Controller
 					'product_qty'   => $inv_arr[$i]['E'],
 					'product_rate'   => $inv_arr[$i]['F'],
 					'product_amount'   => $inv_arr[$i]['G']
+
 				);
 			}
 			echo $responce = json_encode(array('message' => 'success', 'type' => 'success', 'inv' => $data), true);			// $this->csv_import_model->insert($data);
 		}
+	}
+
+	function insert_invoice()
+	{
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			if (isset($_POST['invoice'])) {
+				// echo '<pre>';
+				// print_r($_POST['invoice']);
+				// $invoiceNumber = $this->input->post('invoiceNumber');
+				$tableName = 'master_invoice';
+				$error = [];
+				$data = $_POST['invoice'];
+
+				// print_r($data);
+
+				for ($i = 0; $i < count($data); $i++) {
+					$invoiceNumber = $data[$i]['invoice_number'];
+					$condition = array('invoice_number' => $invoiceNumber);
+					$result = $this->CustomModel->getWhere($tableName, $condition);
+					$d = $data[$i];
+					// print_r($d);
+					// print_r($result);
+
+					if ($result > 0) {
+						array_push($error, $data[$i]);
+						// continue;
+					} else {
+						// print_r();
+						$timestamp = date("Y-m-d H:i:s");
+						$status = 0;
+						$date = yymmdd($data[$i]['doi']);
+						$inv_arr = array(
+							'invoice_number' => $data[$i]['invoice_number'],
+							'doi' => $date,
+							'product_code' => $data[$i]['product_code'],
+							'product_description' => $data[$i]['product_description'],
+							'product_qty' => $data[$i]['product_qty'],
+							'product_rate' => $data[$i]['product_rate'],
+							'product_amount' => $data[$i]['product_amount'],
+							'entered_by'   => $_SESSION['userInfo']['username'],
+							'send_status'   => $status,
+							'entery_datetime'  => $timestamp
+						);
+						$this->CustomModel->insertInto($tableName, $inv_arr);
+					}
+				}
+				if(count($error)!=0){
+					echo $responce = json_encode(array('message' => 'Invoice uploaded', 'type' => 'succes', 'errorlist' => $error, 'path'=>'invoice'), true);
+				}else{
+					echo $responce = json_encode(array('message' => 'error', 'type' => 'success', 'path' =>'invoice', 'errorlist' => $error), true);
+				}
+			}
+		}
+
+		// echo $output;
 	}
 }

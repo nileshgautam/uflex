@@ -2,20 +2,20 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-info ib">Invoice List</h6>
-            <a href="<?php echo base_url('upload-multiple-invoce')?>" class="btn btn-warning btn-circle btn-invoice btn-space" title="Upload multiple invoice">
-                  <i class="fa fa-upload" aria-hidden="true"></i>
-                  </a> 
-            <a href="<?php echo base_url('add-invoice')?>" class="btn btn-info btn-circle btn-invoice btn-space" title="Add Invoice">
-                    <i class="fas fa-plus-circle"></i>
-                  </a> 
-                        
-                </div>
+            <a href="<?php echo base_url('upload-multiple-invoce') ?>" class="btn btn-warning btn-circle btn-invoice btn-space" title="Upload multiple invoice">
+                <i class="fa fa-upload" aria-hidden="true"></i>
+            </a>
+            <a href="<?php echo base_url('add-invoice') ?>" class="btn btn-info btn-circle btn-invoice btn-space" title="Add Invoice">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <div class="col-sm-12">
                     <table class="table table-bordered dataTable" id="invoice-dataTable">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th rowspan="1" colspan="1">Sr.No.</th>
                                 <th rowspan="1" colspan="1">Invoice</th>
                                 <th rowspan="1" colspan="1">DOI</th>
@@ -29,15 +29,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            
+                            <?php
+
                             $i = 1;
 
                             if (!empty($invoice)) {
-                                foreach ($invoice as $item) { 
-                                    ?>
+                                foreach ($invoice as $item) {
+                            ?>
                                     <tr role="row">
-                                        <td><?php echo $i ++; ?></td>
+                                        <td></td>
+                                        <td><?php echo $i++; ?></td>
                                         <td><?php echo $item['invoice_number'] ?></td>
                                         <td><?php echo $item['doi'] ?></td>
                                         <td><?php echo $item['product_code'] ?></td>
@@ -49,8 +50,8 @@
 
                                     </tr>
 
-                                <?php }
-                            } 
+                            <?php }
+                            }
 
                             ?>
 
@@ -64,6 +65,19 @@
 
 <script>
     $(function() {
-        $('.dataTable').dataTable();
+        $('.dataTable').dataTable({
+            'columnDefs': [
+         {
+            'targets': 0,
+            'checkboxes': {
+               'selectRow': true
+            }
+         }
+      ],
+      'select': {
+         'style': 'multi'
+      },
+      'order': [[1, 'asc']]
+        });
     });
 </script>
