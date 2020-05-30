@@ -40,12 +40,27 @@ class IndiaControl extends CI_Controller
 		$this->load->view('india/layout/index');
 		$this->load->view('india/layout/footer');
 	}
-	public function invoice()
+
+	public function sent_invoice($var = null)
 	{
-		$result['invoice']=$this->CustomModel->selectAll('master_invoice');
+		# code...
+		// sent-invoice
+		$tableName = 'master_invoice';
+		$condition = array('send_status' => 1);
+		$result['invoice'] = $this->CustomModel->selectAllFromWhere($tableName, $condition);
 		$this->load->view('india/layout/header');
 		$this->load->view('india/layout/sidenavbar');
-		$this->load->view('india/pages/invoice',$result);
+		$this->load->view('india/pages/sent-invoice', $result);
+		$this->load->view('india/layout/footer');
+	}
+	public function invoice()
+	{
+		$tableName = 'master_invoice';
+		$condition = array('send_status' => 0);
+		$result['invoice'] = $this->CustomModel->selectAllFromWhere($tableName, $condition);
+		$this->load->view('india/layout/header');
+		$this->load->view('india/layout/sidenavbar');
+		$this->load->view('india/pages/invoice', $result);
 		$this->load->view('india/layout/footer');
 	}
 	public function addinvoice()
@@ -130,5 +145,4 @@ class IndiaControl extends CI_Controller
 	{
 		$timezone = $date = date('m-d-Y h:i:s a', time());
 	}
-	
 }

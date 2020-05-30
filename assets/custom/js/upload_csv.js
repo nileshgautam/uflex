@@ -94,11 +94,11 @@ $(function () {
 
     const loaderror = (obj) => {
         var btn = document.createElement("a");   // Create a <button> element
-        btn.innerText = "Show error list";
-        btn.setAttribute('href', "#");
-        btn.setAttribute('class', "text-danger");
-        let header = document.getElementById('upload-multiple-invoice');
-        header.appendChild(btn);
+        // btn.innerText = "Show error list";
+        // btn.setAttribute('href', "#");
+        // btn.setAttribute('class', "text-danger");
+        // let header = document.getElementById('upload-multiple-invoice');
+        // header.appendChild(btn);
         // console.log(header);    
         $('#imported_csv_data').empty();
 
@@ -141,10 +141,10 @@ $(function () {
       </tr>`;
         }
         html += `</table></div>`;
-        html += `<div><button data-inv='${btoa(JSON.stringify(obj))}' class="btn-info btn-sm btn-flx send-invoice">Upload</button></div>`;
+        // html += `<div><button data-inv='${btoa(JSON.stringify(obj))}' class="btn-info btn-sm btn-flx send-invoice">Upload</button></div>`;
         $('#imported_csv_data').html(html);
-
        
     }
 
 });
+

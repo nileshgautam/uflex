@@ -73,4 +73,11 @@ class CustomModel extends ci_model
         $query = $this->db->delete($tableName);
         return ($query != null) ? FALSE : TRUE;
     }
+    public function send_invoice($tableName = null, $invoice_number = null, $doi = null, $product_code = null)
+    {
+        $query = "UPDATE $tableName SET send_status=1 WHERE invoice_number='$invoice_number' AND product_code='$product_code' AND doi='$doi'
+       ";
+        $result = $this->db->query($query);
+        return ($result!=null)? true : false;
+    }
 }

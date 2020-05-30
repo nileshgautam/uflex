@@ -59,3 +59,8 @@
 .ml-25:hover{
     color: #36b9cc;
 }
+
+.btn-send{
+    display: flex !important;
+    justify-content: center !important;
+}

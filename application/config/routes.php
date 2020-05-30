@@ -62,6 +62,8 @@ $route['logout'] = 'UserAuthenticationControl/logout';
 
 $route['india'] = 'IndiaControl/index';
 $route['invoice'] = 'IndiaControl/invoice';
+$route['sent-invoice'] = 'IndiaControl/sent_invoice';
+
 $route['add-invoice'] = 'IndiaControl/addinvoice';
 $route['edit-invoice'] = 'IndiaControl/editinvoce';
 $route['upload-multiple-invoce'] = 'IndiaControl/uploadmultipleinvoce';

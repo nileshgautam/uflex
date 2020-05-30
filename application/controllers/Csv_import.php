@@ -96,10 +96,13 @@ class Csv_import extends CI_Controller
 				// print_r($data);
 
 				for ($i = 0; $i < count($data); $i++) {
+					$date = yymmdd($data[$i]['doi']);
 					$invoiceNumber = $data[$i]['invoice_number'];
-					$condition = array('invoice_number' => $invoiceNumber);
+					$product_code = $data[$i]['product_code'];
+
+					$condition = array('product_code' => $product_code, 'invoice_number' => $invoiceNumber, 'doi' => $date);
 					$result = $this->CustomModel->getWhere($tableName, $condition);
-					$d = $data[$i];
+					// $d = $data[$i];
 					// print_r($d);
 					// print_r($result);
 
@@ -126,14 +129,55 @@ class Csv_import extends CI_Controller
 						$this->CustomModel->insertInto($tableName, $inv_arr);
 					}
 				}
-				if(count($error)!=0){
-					echo $responce = json_encode(array('message' => 'Invoice uploaded', 'type' => 'succes', 'errorlist' => $error, 'path'=>'invoice'), true);
-				}else{
-					echo $responce = json_encode(array('message' => 'error', 'type' => 'success', 'path' =>'invoice', 'errorlist' => $error), true);
+				if (count($error) != 0) {
+					echo $responce = json_encode(array('message' => 'Invoice uploaded', 'type' => 'succes', 'errorlist' => $error, 'path' => 'invoice'), true);
+				} else {
+					echo $responce = json_encode(array('message' => 'error', 'type' => 'success', 'path' => 'invoice', 'errorlist' => $error), true);
 				}
 			}
 		}
 
 		// echo $output;
+	}
+
+	public function send_invoice()
+	{
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			if (isset($_POST['invoice_numbers'])) {
+				$selected_invoice = $_POST['invoice_numbers'];
+				if (!empty($selected_invoice)) {
+					$count = 0;
+					$tableName = 'master_invoice';
+					for ($i = 0; $i < count($selected_invoice); $i++) {
+						// print_r($selected_invoice[$i]['invoice_number']);
+						$date = yymmdd($selected_invoice[$i]['doi']);
+						$r = $this->CustomModel->send_invoice($tableName, $selected_invoice[$i]['invoice_number'], $doi = $date, $product_code = $selected_invoice[$i]['product_code']);
+						$count++;
+					}
+					echo $responce = json_encode(array('messages' => 'Invoice Sent', 'type' => 'success'));
+				} else {
+					echo $responce = json_encode(array('messages' => 'OOPs... system error Contact IT', 'type' => 'error'));
+				}
+			}
+		}
+	}
+
+	public function edit_invoice()
+	{
+		// echo '<pre>';
+		// print_r($_POST);
+		$tableName = 'master_invoice';
+		$condition = array('invoice_number' => base64_decode($_POST['invoice_number']), 'product_code' => base64_decode($_POST['product_code']));
+		$result = $this->CustomModel->selectAllFromWhere($tableName, $condition);
+		// print_r($result);
+		echo $res = json_encode(array('data' => $result, 'path' => 'Csv_import/eiditinvoce'), true);
+	}
+
+	public function eiditinvoce()
+	{
+		$this->load->view('india/layout/header');
+		$this->load->view('india/layout/sidenavbar');
+		$this->load->view('india/pages/edit-invoice');
+		$this->load->view('india/layout/footer');
 	}
 }
