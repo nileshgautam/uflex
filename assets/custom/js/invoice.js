@@ -153,7 +153,7 @@ $(document).ready(function () {
 
 });
 
-
+// Update invoice product details if any
 $('#edit-invoice-form').on('submit', function (e) {
     e.preventDefault();
     let from_data=$(this).serialize();
