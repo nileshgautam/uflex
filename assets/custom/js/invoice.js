@@ -1,5 +1,5 @@
 // Updates "Select all" control in a data table
-//
+
 function updateDataTableSelectAllCtrl(table) {
     var $table = table.table().node();
     var $chkbox_all = $('tbody input[type="checkbox"]', $table);
@@ -65,7 +65,7 @@ $(document).ready(function () {
         // Get row data
         let data = table.row($row).data();
 
-        // console.log(data);
+        console.log(data[2]);
 
         // Get row ID
         let rowId = {
@@ -138,20 +138,12 @@ $(document).ready(function () {
                     $('#btn-send').html('Sending...');
                 },
                 success: function (data) {
-                    res = JSON.parse(data);
-                    console.log(res);
-                    // if()
                     $('#btn-send').attr('disabled', false);
                     $('#btn-send').html('Sent');
 
                     setTimeout(function () {
                         window.location.reload();
                     }, 2000);
-                    // let res = JSON.parse(data)
-                    // console.log(data);
-                    // if (res.inv) {
-                    //     load_data(res.inv);
-                    // }
                 }
             })
         } else {
@@ -162,52 +154,19 @@ $(document).ready(function () {
 });
 
 
-$('#invoice-dataTable').on('click', '.edit-invoice', function (e) {
+$('#edit-invoice-form').on('submit', function (e) {
     e.preventDefault();
-    // console.log(this);
-    let invoice_number = $(this).attr('data-invoice');
-    let product_code = $(this).attr('data-pid');
-
-    if (invoice_number != '' && product_code != '') {
-        console.log(invoice_number)
-        console.log(product_code)
-        let obj = {
-            invoice_number: invoice_number,
-            product_code: product_code
-        }
+    let from_data=$(this).serialize();
+ // console.log(from_data);
+    if (from_data!='') {
         $.ajax({
-            url: BaseUrl + "Csv_import/edit_invoice",
+            url: BaseUrl + "IndiaControl/update_invoice",
             method: "POST",
-            data: obj,
+            data: from_data,
             success: function (data) {
                 res = JSON.parse(data);
-                if (res.data.length != 0) {
-                    // let obj=JSON.parse(res.data);
-                    // console.log(res.data);
-                    // // res.data[0]['id']
-                    // $('#invoice-number').val(res.data[0]['invoice_number']);
-                    // $('#doi').val(res.data[0]['doi']);
-                    // $('#icode').val(res.data[0]['product_code']);
-                    // $('#idec').val(res.data[0]['product_description']);
-                    // $('#iqty').val(res.data[0]['product_qty']);
-                    // $('#irate').val(res.data[0]['product_rate']);
-                    // $('#amount').val(res.data[0]['product_amount']);
-                    window.location.href = BaseUrl + res.path;
-
-                    // setTimeout(function () {
-                    // }, 1000);
-
-
-                    // console.log(res.data[0]['id']
-                    // );
-
-                }
-                else {
-                    showAlert('OOPs! something went wrong Contact IT', 'danger');
-                }
-
+                showAlert(res.message, res.type);
             }
-        })
-
+        });
     }
 });

@@ -2,12 +2,9 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-info ib">Sent Invoice List</h6>
-            <!-- <a href="<?php echo base_url('upload-multiple-invoce') ?>" class="btn btn-warning btn-circle btn-invoice btn-space" title="Upload multiple invoice">
-                <i class="fa fa-upload" aria-hidden="true"></i>
-            </a>
-            <a href="<?php echo base_url('add-invoice') ?>" class="btn btn-info btn-circle btn-invoice btn-space" title="Add Invoice">
-                <i class="fas fa-plus"></i>
-            </a> -->
+            <a href="<?php echo base_url('invoice') ?>" class="btn btn-warning btn-circle btn-invoice" title="Back">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -24,8 +21,6 @@
                                 <th rowspan="1" colspan="1">Qty.</th>
                                 <th rowspan="1" colspan="1">Rate</th>
                                 <th rowspan="1" colspan="1">Amount</th>
-                                <th rowspan="1" colspan="1">Action</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -40,15 +35,13 @@
                                     <tr role="row">
                                         <td></td>
                                         <td><?php echo $i++; ?></td>
-                                        <td><?php echo $item['invoice_number'] ?></td>
+                                        <td><?php echo RemoveSpecialChar($item['invoice_number']) ?></td>
                                         <td colspan="1"><?php echo $date ?></td>
-                                        <td><?php echo $item['product_code'] ?></td>
-                                        <td><?php echo $item['product_description'] ?></td>
+                                        <td><?php echo RemoveSpecialChar( $item['product_code']) ?></td>
+                                        <td><?php echo RemoveSpecialChar( $item['product_description']) ?></td>
                                         <td><?php echo $item['product_qty'] ?></td>
                                         <td><?php echo $item['product_rate'] ?></td>
                                         <td><?php echo $item['product_amount'] ?></td>
-                                        <td></td>
-
                                     </tr>
 
                             <?php }
@@ -58,11 +51,6 @@
 
                         </tbody>
                     </table>
-                    <!-- <form id="invoice-form">
-                        <div class="btn-send">
-                            <button type="submit" id="btn-send" class="btn btn-success" title="Send">Send</button>
-                        </div>
-                    </form> -->
                 </div>
             </div>
         </div>

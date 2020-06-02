@@ -81,7 +81,7 @@ $(function () {
             data: inv_data,
             success: function (data) {
                 let res = JSON.parse(data);
-                console.log(res);
+                // console.log(res);
                 if (res.errorlist.length == 0) {
                     // console.log(res);
                     loaderror(res.errorlist);
@@ -93,7 +93,7 @@ $(function () {
     });
 
     const loaderror = (obj) => {
-        var btn = document.createElement("a");   // Create a <button> element
+        // var btn = document.createElement("a");   // Create a <button> element
         // btn.innerText = "Show error list";
         // btn.setAttribute('href', "#");
         // btn.setAttribute('class', "text-danger");
@@ -102,8 +102,14 @@ $(function () {
         // console.log(header);    
         $('#imported_csv_data').empty();
 
+        let message
+        if (obj.length > 0) {
+            message = `<h6 class="m-0 font-weight-bold text-danger text-center my-2">All ready exist in Database</h6>`;
+        } else {
+            message = `<h6 class="m-0 font-weight-bold text-success text-center my-2">Successfuly uploaded</h6>`;
+        }
 
-        let html = `<h6 class="m-0 font-weight-bold text-danger text-center my-2">All ready exist in Database</h6>
+        let html = `${message}
         <div class="table-responsive">
          <table class="table table-bordered dataTable table-striped">
           <tr>
@@ -137,13 +143,13 @@ $(function () {
             }
         } else {
             html += `<tr>;
-      <td colspan="7" >Data not Available</td>
+      <td colspan="8" class="text-center">Data not Available</td>
       </tr>`;
         }
         html += `</table></div>`;
         // html += `<div><button data-inv='${btoa(JSON.stringify(obj))}' class="btn-info btn-sm btn-flx send-invoice">Upload</button></div>`;
         $('#imported_csv_data').html(html);
-       
+
     }
 
 });

@@ -10,17 +10,13 @@ class Csv_import extends CI_Controller
 
 		// Load session library
 		date_default_timezone_set('Asia/Kolkata');
-
 		$this->load->model('csv_import_model');
 		$this->load->model('CustomModel');
-		// $this->load->library('csvimport');
-		// $this->load->helper('datefilter');
 		if (!isset($_SESSION['userInfo'])) {
 			$this->session->sess_destroy();
 			redirect('UserAuthenticationControl/index');
 		}
 	}
-
 
 	// Function to import data from excel/csv
 	function import()
@@ -97,11 +93,11 @@ class Csv_import extends CI_Controller
 
 				for ($i = 0; $i < count($data); $i++) {
 					$date = yymmdd($data[$i]['doi']);
-					$invoiceNumber = $data[$i]['invoice_number'];
-					$product_code = $data[$i]['product_code'];
-
+					$invoiceNumber = $this->db->escape($data[$i]['invoice_number']);
+					$product_code = $this->db->escape($data[$i]['product_code']);
 					$condition = array('product_code' => $product_code, 'invoice_number' => $invoiceNumber, 'doi' => $date);
 					$result = $this->CustomModel->getWhere($tableName, $condition);
+
 					// $d = $data[$i];
 					// print_r($d);
 					// print_r($result);
@@ -115,10 +111,10 @@ class Csv_import extends CI_Controller
 						$status = 0;
 						$date = yymmdd($data[$i]['doi']);
 						$inv_arr = array(
-							'invoice_number' => $data[$i]['invoice_number'],
+							'invoice_number' => $invoiceNumber,
 							'doi' => $date,
-							'product_code' => $data[$i]['product_code'],
-							'product_description' => $data[$i]['product_description'],
+							'product_code' => $product_code,
+							'product_description' => $this->db->escape($data[$i]['product_description']),
 							'product_qty' => $data[$i]['product_qty'],
 							'product_rate' => $data[$i]['product_rate'],
 							'product_amount' => $data[$i]['product_amount'],
@@ -144,40 +140,30 @@ class Csv_import extends CI_Controller
 	{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if (isset($_POST['invoice_numbers'])) {
+
+
 				$selected_invoice = $_POST['invoice_numbers'];
+				print_r($selected_invoice);
+				// die;
 				if (!empty($selected_invoice)) {
 					$count = 0;
 					$tableName = 'master_invoice';
 					for ($i = 0; $i < count($selected_invoice); $i++) {
-						// print_r($selected_invoice[$i]['invoice_number']);
 						$date = yymmdd($selected_invoice[$i]['doi']);
-						$r = $this->CustomModel->send_invoice($tableName, $selected_invoice[$i]['invoice_number'], $doi = $date, $product_code = $selected_invoice[$i]['product_code']);
+						$data=array('send_status'=>1);
+						$condition = array(
+							'invoice_number' =>$this->db->escape($selected_invoice[$i]['invoice_number']),
+							'doi' =>$date,
+							'product_code' =>$this->db->escape($selected_invoice[$i]['product_code']),
+						);
+						$res = $this->CustomModel->update_table($tableName, $condition, $data);
 						$count++;
 					}
-					echo $responce = json_encode(array('messages' => 'Invoice Sent', 'type' => 'success'));
+					echo $responce = json_encode(array('messages' => 'Invoice Sent', 'type' => 'success'), true);
 				} else {
-					echo $responce = json_encode(array('messages' => 'OOPs... system error Contact IT', 'type' => 'error'));
+					echo $responce = json_encode(array('messages' => 'OOPs... system error Contact IT', 'type' => 'error'), true);
 				}
 			}
 		}
-	}
-
-	public function edit_invoice()
-	{
-		// echo '<pre>';
-		// print_r($_POST);
-		$tableName = 'master_invoice';
-		$condition = array('invoice_number' => base64_decode($_POST['invoice_number']), 'product_code' => base64_decode($_POST['product_code']));
-		$result = $this->CustomModel->selectAllFromWhere($tableName, $condition);
-		// print_r($result);
-		echo $res = json_encode(array('data' => $result, 'path' => 'Csv_import/eiditinvoce'), true);
-	}
-
-	public function eiditinvoce()
-	{
-		$this->load->view('india/layout/header');
-		$this->load->view('india/layout/sidenavbar');
-		$this->load->view('india/pages/edit-invoice');
-		$this->load->view('india/layout/footer');
 	}
 }

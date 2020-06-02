@@ -40,14 +40,14 @@
                                     <tr role="row">
                                         <td></td>
                                         <td><?php echo $i++; ?></td>
-                                        <td><?php echo $item['invoice_number'] ?></td>
+                                        <td><?php echo RemoveSpecialChar($item['invoice_number']) ?></td>
                                         <td><?php echo  $date ?></td>
-                                        <td><?php echo $item['product_code'] ?></td>
-                                        <td><?php echo $item['product_description'] ?></td>
+                                        <td><?php echo RemoveSpecialChar($item['product_code']) ?></td>
+                                        <td><?php echo RemoveSpecialChar($item['product_description']) ?></td>
                                         <td><?php echo $item['product_qty'] ?></td>
                                         <td><?php echo $item['product_rate'] ?></td>
                                         <td><?php echo $item['product_amount'] ?></td>
-                                        <td><a data-invoice="<?php echo base64_encode($item['invoice_number'])?>" data-pid='<?php echo base64_encode( $item['product_code']) ?>' href="#" class="btn btn-warning btn-circle edit-invoice btn-invoice btn-space" title="edit">
+                                        <td><a href="<?php echo base_url('IndiaControl/eiditinvoce').'/'.base64_encode($item['invoice_number']).'/'.base64_encode( $item['product_code']) ?>" class="btn btn-warning btn-circle btn-invoice btn-space" title="edit">
                                                 <i class="fas fa-edit"></i>
                                             </a></td>
                                     </tr>
@@ -67,31 +67,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-        <div class="container demo">
-            <!-- Modal -->
-            <div class="modal left fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="">
-                                <input type="text">
-                            </form>
-                        </div>
-
-                    </div>
-                    <!-- modal-content -->
-                </div>
-                <!-- modal-dialog -->
-            </div>
-            <!-- modal -->
-        </div><!-- container -->
 
     </div>
 </div>
