@@ -54,6 +54,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Stock</h6>
                     <a class="collapse-item" href="<?php echo base_url('london/stock-invoice')?>">Stock</a>
+                    <a class="collapse-item" href="<?php echo base_url('london/update-stock-invoice')?>">Update Stock</a>
                     <!-- <a class="collapse-item" href="#">Upload Opening Stock</a> -->
                 </div>
             </div>

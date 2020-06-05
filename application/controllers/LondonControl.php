@@ -251,4 +251,12 @@ class LondonControl extends CI_Controller
 			}
 		}
 	}
+
+	public function update_stock_invoice($var = null)
+	{
+		$this->load->view('london/layout/header');
+		$this->load->view('london/layout/sidenavbar');
+		$this->load->view('london/pages/update-invoice');
+		$this->load->view('london/layout/footer');
+	}
 }
