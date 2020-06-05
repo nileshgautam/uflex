@@ -114,7 +114,7 @@ $(function () {
     });
 
     // console.log(objarr);
-
+    // Function to update india invoice
     $('.save-data').click(function () {
         let error = false;
         let invoice = $('#invoice-number').val();
@@ -135,6 +135,19 @@ $(function () {
             $('#invoice-date').focus();
             $('#invoice-date').css('border', '2px solid red')
         }
+        for (let i = 0; i < objarr.length; i++) {
+            if (objarr[i]['producCode'] == ''
+                || objarr[i]['producDetails'] == ''
+                || objarr[i]['productQuantity'] == ''
+                || objarr[i]['productRate'] == ''
+                || objarr[i]['productAmount'] == ''
+            ) {
+                error = true;
+            } else {
+                error = false;
+            }
+
+        }
         if (!error) {
             if (confirm("Are you sure want to submit ?")) {
                 let url = BaseUrl + 'submit-invoice';
@@ -146,11 +159,13 @@ $(function () {
                 $.post(url, data, function (data, status) {
                     let res = JSON.parse(data);
                     showAlert(res.messages, res.type);
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         location.reload();
-                    },1000);
+                    }, 1000);
                 });
             }
+        } else {
+            showAlert('Empty field are not allowed', 'danger');
         }
         //   console.log(objarr);
     });
@@ -162,7 +177,6 @@ $(function () {
         defaultViewDate: true
     });
 
-
     const validateIsEmpty = (key) => {
         let error = false;
         if (key == '') {
@@ -173,7 +187,68 @@ $(function () {
         }
         return error;
     }
+    // function to update stock for london outlate
+    $('.update-stock').click(function () {
+        let error = false;
+        let invoice = $('#invoice-number').val();
+        let doi = $('#invoice-date').val();  //date of invoice (doi)
+        let productList = objarr;
+        // let invoceResponce = validateIsEmpty(invoice);
 
+        // console.log(productList[0]['producCode']);
+
+        // let dateResponce = validateIsEmpty(doi);
+
+        // console.log(objarr);
+
+
+
+        if (invoice == '') {
+            error = true;
+            // invoice.focus();
+            $('#invoice-number').focus();
+            $('#invoice-number').css("border", '2px solid red');
+        }
+        if (doi == '') {
+            error = true;
+            // doi.focus();
+            $('#invoice-date').focus();
+            $('#invoice-date').css('border', '2px solid red')
+        }
+        for (let i = 0; i < objarr.length; i++) {
+            if (objarr[i]['producCode'] == ''
+                || objarr[i]['producDetails'] == ''
+                || objarr[i]['productQuantity'] == ''
+                || objarr[i]['productRate'] == ''
+                || objarr[i]['productAmount'] == ''
+            ) {
+                error = true;
+            } else {
+                error = false;
+            }
+
+        }
+
+        if (!error) {
+            if (confirm("Are you sure want to submit ?")) {
+                let url = BaseUrl + 'london/update-invoice';
+                let data = {
+                    invoiceNumber: invoice,
+                    dateOfinvoice: doi,
+                    products: productList
+                }
+                $.post(url, data, function (data, status) {
+                    let res = JSON.parse(data);
+                    showAlert(res.messages, res.type);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                });
+            }
+        } else {
+            showAlert('Empty field are not allowed', 'danger');
+        }
+    });
 
 });
 

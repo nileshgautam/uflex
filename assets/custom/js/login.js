@@ -10,7 +10,6 @@ $(function () {
     //login function
     $('.login-from').submit(function (e) {
         e.preventDefault();
-
         console.log('hi');
         let form_data = $(this).serialize();
         let username = $('#inputEmail').val();

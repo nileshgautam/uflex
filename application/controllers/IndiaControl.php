@@ -35,9 +35,25 @@ class IndiaControl extends CI_Controller
 	 */
 	public function index()
 	{
+		// $this->load->view('india/layout/header');
+		// $this->load->view('india/layout/sidenavbar');
+		// $this->load->view('india/layout/index');
+		// $this->load->view('india/layout/footer');
+
+		$tableName = 'master_invoice';
+		$condition = array('send_status' => I_NEW);
+
+		$result['invoice'] = $this->CustomModel->selectAllFromWhere($tableName, $condition);
+
+		$condition1 = array('send_status' => REJECTED);
+
+		$result['rejected'] = $this->CustomModel->selectAllFromWhere($tableName, $condition1);
+		$rejected['count'] = ($result['rejected'] != 0) ? count($result['rejected']) : 0;
+
+
 		$this->load->view('india/layout/header');
-		$this->load->view('india/layout/sidenavbar');
-		$this->load->view('india/layout/index');
+		$this->load->view('india/layout/sidenavbar', $rejected);
+		$this->load->view('india/pages/invoice', $result);
 		$this->load->view('india/layout/footer');
 	}
 
@@ -46,10 +62,14 @@ class IndiaControl extends CI_Controller
 		# code...
 		// sent-invoice
 		$tableName = 'master_invoice';
-		$condition = array('send_status' => 1);
+		$condition = "send_status='" . SENT . "'OR send_status='" . REJECTED . "' OR send_status='" . ACCEPT . "'";
 		$result['invoice'] = $this->CustomModel->selectAllFromWhere($tableName, $condition);
+		$condition1 = array('send_status' => REJECTED);
+
+		$result['rejected'] = $this->CustomModel->selectAllFromWhere($tableName, $condition1);
+		$rejected['count'] = ($result['rejected'] != 0) ? count($result['rejected']) : 0;
 		$this->load->view('india/layout/header');
-		$this->load->view('india/layout/sidenavbar');
+		$this->load->view('india/layout/sidenavbar', $rejected);
 		$this->load->view('india/pages/sent-invoice', $result);
 		$this->load->view('india/layout/footer');
 	}
@@ -57,10 +77,18 @@ class IndiaControl extends CI_Controller
 	public function invoice()
 	{
 		$tableName = 'master_invoice';
-		$condition = array('send_status' => 0);
+		$condition = array('send_status' => I_NEW);
+
 		$result['invoice'] = $this->CustomModel->selectAllFromWhere($tableName, $condition);
+
+		$condition1 = array('send_status' => REJECTED);
+
+		$result['rejected'] = $this->CustomModel->selectAllFromWhere($tableName, $condition1);
+		$rejected['count'] = ($result['rejected'] != 0) ? count($result['rejected']) : 0;
+
+
 		$this->load->view('india/layout/header');
-		$this->load->view('india/layout/sidenavbar');
+		$this->load->view('india/layout/sidenavbar', $rejected);
 		$this->load->view('india/pages/invoice', $result);
 		$this->load->view('india/layout/footer');
 	}
@@ -86,7 +114,7 @@ class IndiaControl extends CI_Controller
 		if (!empty($_POST)) {
 			$invoiceNumber = $this->input->post('invoiceNumber');
 			$tableName = 'master_invoice';
-			$condition = array('invoice_number' => $this->db->escape($invoiceNumber));
+			$condition = array('invoice_number' => validateInput($invoiceNumber));
 			$result = $this->CustomModel->getWhere($tableName, $condition);
 			$timestamp = date("Y-m-d H:i:s");
 
@@ -97,19 +125,20 @@ class IndiaControl extends CI_Controller
 					$productlist =  $this->input->post('products');
 					$doi = $this->input->post('dateOfinvoice');
 					$date = yymmdd($doi);
+					$status = I_NEW;
 					$rows = array();
 					for ($i = 0; $i < count($productlist); $i++) {
 						$data = array(
-							'invoice_number' => $this->db->escape($this->input->post('invoiceNumber')),
+							'invoice_number' => validateInput($this->input->post('invoiceNumber')),
 							'doi' => $date,
-							'product_code' => $this->db->escape($productlist[$i]['producCode']),
-							'product_description' =>$this->db->escape($productlist[$i]['producDetails']),
+							'product_code' => validateInput($productlist[$i]['producCode']),
+							'product_description' => validateInput($productlist[$i]['producDetails']),
 							'product_qty' => $productlist[$i]['productQuantity'],
 							'product_rate' => $productlist[$i]['productRate'],
 							'product_amount' => $productlist[$i]['productAmount'],
 							'entered_by' => $_SESSION['userInfo']['username'],
 							'entery_datetime' => $timestamp,
-							'send_status' => $timestamp,
+							'send_status' => $status
 						);
 						array_push($rows, $data);
 					}
@@ -143,13 +172,12 @@ class IndiaControl extends CI_Controller
 	// Function to Update invoce details 
 	public function update_invoice()
 	{
-
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if (isset($_POST)) {
 				// print_r($_POST);
-				$invoice_number = $this->db->escape($_POST['invoice-number']);
-				$product_code = $this->db->escape($_POST['icode']);
-				$product_description = $this->db->escape($_POST['idec']);
+				$invoice_number = validateInput($_POST['invoice-number']);
+				$product_code = validateInput($_POST['icode']);
+				$product_description = validateInput($_POST['idec']);
 				$timestamp = date("Y-m-d H:i:s");
 				$date = $_POST['doi'];
 				$inv_arr = array(
@@ -164,21 +192,42 @@ class IndiaControl extends CI_Controller
 					'entery_datetime'  => $timestamp
 				);
 
-				$tableName='master_invoice';
+				$tableName = 'master_invoice';
 
-				$condition=array(
-					'id'=>$_POST['invoice-id']
+				$condition = array(
+					'id' => $_POST['invoice-id']
 				);
 
 				// print_r($inv_arr);
 
-				$res= $this->CustomModel->update_table($tableName , $condition, $inv_arr);
-				if($res>0){
-					echo $response=json_encode(array('message'=>'Success! Invoices updated', 'type'=>'success'),true);
-				}else{
-					echo $response=json_encode(array('message'=>'Error! Opps... Contact IT', 'type'=>'error'),true);
+				$res = $this->CustomModel->update_table($tableName, $condition, $inv_arr);
+				if ($res > 0) {
+					echo $response = json_encode(array('message' => 'Success! Invoices updated', 'type' => 'success'), true);
+				} else {
+					echo $response = json_encode(array('message' => 'Error! Opps... Contact IT', 'type' => 'error'), true);
 				}
 			}
+		}
+	}
+
+	// Reject list
+
+	function reject_list($id = null)
+	{
+		if ($id != '') {
+		
+			$r_id = base64_decode($id);
+		
+			$tableName = 'master_invoice';
+		
+			$condition = array('id'=>$r_id);
+
+			$result['rejected'] = $this->CustomModel->selectAllFromWhere($tableName, $condition);
+	
+			$this->load->view('india/layout/header');
+			$this->load->view('india/layout/sidenavbar');
+			$this->load->view('india/pages/rejecte-list', $result);
+			$this->load->view('india/layout/footer');
 		}
 	}
 }

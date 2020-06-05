@@ -21,9 +21,11 @@
                                 <th rowspan="1" colspan="1">Qty.</th>
                                 <th rowspan="1" colspan="1">Rate</th>
                                 <th rowspan="1" colspan="1">Amount</th>
+                                <th rowspan="1" colspan="1">Status</th>
+
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="sent-status">
                             <?php
 
                             $i = 1;
@@ -31,6 +33,15 @@
                             if (!empty($invoice)) {
                                 foreach ($invoice as $item) {
                                     $date=ddmmyy($item['doi']);
+                                    $status='';
+                                    if($item['send_status']==REJECTED){
+                                        $status.='<a href="'.base_url("IndiaControl/reject_list/").base64_encode($item['id']).'" ><span class="text-danger ">Rejected</span><a>';  
+                                    }else if($item['send_status']==SENT){
+                                        $status.='<span class="text-success">Sent</span>'; 
+                                    }
+                                    else if($item['send_status']==ACCEPT){
+                                        $status.='<span class="text-success">Accepted</span>'; 
+                                    }
                             ?>
                                     <tr role="row">
                                         <td></td>
@@ -42,6 +53,8 @@
                                         <td><?php echo $item['product_qty'] ?></td>
                                         <td><?php echo $item['product_rate'] ?></td>
                                         <td><?php echo $item['product_amount'] ?></td>
+                                        <td><?php echo $status ?></td>
+
                                     </tr>
 
                             <?php }

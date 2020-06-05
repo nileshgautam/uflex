@@ -61,10 +61,10 @@
                     </div>
                     <input type="submit" value="Login" class="btn btn-info btn-user btn-block">
                   </form>
-                  <hr>
+                  <!-- <hr>
                   <div class="text-center">
                     <a class="small" href="<?php echo base_url('forgot-password'); ?>">Forgot Password?</a>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>

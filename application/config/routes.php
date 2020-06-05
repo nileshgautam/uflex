@@ -59,7 +59,6 @@ $route['forgot-password'] = 'UserAuthenticationControl/forgotpassword';
 $route['/'] = 'UserAuthenticationControl/index';
 $route['logout'] = 'UserAuthenticationControl/logout';
 
-
 $route['india'] = 'IndiaControl/index';
 $route['invoice'] = 'IndiaControl/invoice';
 $route['sent-invoice'] = 'IndiaControl/sent_invoice';
@@ -70,13 +69,13 @@ $route['upload-multiple-invoce'] = 'IndiaControl/uploadmultipleinvoce';
 $route['submit-invoice'] = 'IndiaControl/postinvoice';
 $route['invoice-format'] = 'sample_file/invoceUploadformat.csv';
 
-
-
-
-
-
-
+// london login
 $route['london'] = 'londonControl/index';
+$route['london/add-invoice'] = 'londonControl/add_invoice';
+$route['london/stock-invoice'] = 'londonControl/stock_invoice';
+$route['london/upload-invoice'] = 'londonControl/upload_invoice';
+$route['london/update-invoice'] = 'londonControl/update_invoice';
+
 
 $route['admin'] = 'adminControl/index';
 $route['manager'] = 'managerControl/index';

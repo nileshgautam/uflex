@@ -83,6 +83,7 @@ $(document).ready(function () {
 
             // Otherwise, if checkbox is not checked and row ID is in list of selected row IDs
         } else if (!this.checked && index !== -1) {
+
             rows_selected.splice(index, 1);
         }
 
@@ -123,7 +124,7 @@ $(document).ready(function () {
     });
 
     // Handle form submission event
-    $('#invoice-form').on('submit', function (e) {
+    $('#london-invoice-form').on('submit', function (e) {
         e.preventDefault();
         // console.log(rows_selected);
         let selected_invoice = {
@@ -131,18 +132,18 @@ $(document).ready(function () {
         };
         if (rows_selected.length != 0) {
             $.ajax({
-                url: BaseUrl + "Csv_import/send_invoice",
+                url: BaseUrl + "LondonControl/accept_invoice_multiple",
                 method: "POST",
                 data: selected_invoice,
                 beforeSend: function () {
-                    $('#btn-send').html('Sending...');
+                    $('#btn-accept').html('Please wait...');
                 },
                 success: function (data) {
-                    $('#btn-send').attr('disabled', false);
-                    $('#btn-send').html('Sent');
+                    $('#btn-accept').attr('disabled', false);
+                    $('#btn-accept').html('Accepted');
                     console.log(data);
                     let res = JSON.parse(data);
-                    showAlert(res.messages, res.type);
+                    showAlert(res.message, res.type);
                     setTimeout(function () {
                         window.location.reload();
                     }, 2000);
@@ -153,28 +154,56 @@ $(document).ready(function () {
         }
     });
 
+    // Reject 
+    $('#data-invoice').on('click', '.reject-invoice', function (e) {
+        e.preventDefault();
+        let input=prompt('Kindly enter reason for reject.');
+        let id = $(this).attr('data-id');
+
+        let selected_invoice = { id: id ,
+        reason:input};
+        // console.log(input);
+
+        if (id != '' && input!='') {
+            $.ajax({
+                url: BaseUrl + "LondonControl/reject_invoice",
+                method: "POST",
+                data: selected_invoice,
+                success: function (data) {
+                    let res = JSON.parse(data);
+                    // console.log(res);
+                    showAlert(res.message, res.type)
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
+                },
+            });
+        }else if(input==''|| input==null){
+            showAlert('Kindly enter reason for reject.','danger');
+        }
+    });
+
+    // Accept 
+    $('#data-invoice').on('click', '.accept-invoice', function (e) {
+        e.preventDefault();
+        let id = $(this).attr('data-id');
+        let selected_invoice = { id: id };
+        if (id != '') {
+            $.ajax({
+                url: BaseUrl + "LondonControl/accept_invoice",
+                method: "POST",
+                data: selected_invoice,
+                success: function (data) {
+                    let res = JSON.parse(data);
+                    console.log(res);
+                    showAlert(res.message, res.type)
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
+                },
+            });
+        }
+    })
+
 });
 
-// Update invoice product details if any
-$('#edit-invoice-form').on('submit', function (e) {
-    e.preventDefault();
-    let from_data = $(this).serialize();
-    // console.log(from_data);
-    if (from_data != '') {
-        $.ajax({
-            url: BaseUrl + "IndiaControl/update_invoice",
-            method: "POST",
-            data: from_data,
-            success: function (data) {
-                res = JSON.parse(data);
-                showAlert(res.message, res.type);
-            }
-        });
-    }
-});
-
-$('#sent-status').on('click', '.view-reasion', function (e) {
-    e.preventDefault()
-    console.log(this);
-    // $(this).attr('data-id')
-});

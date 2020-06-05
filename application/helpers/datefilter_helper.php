@@ -45,3 +45,12 @@ function RemoveSpecialChar($value){
  return $result;   
 }
 
+// Function to validate inputs 
+
+function validateInput($inp)
+{
+    $val = htmlspecialchars($inp, ENT_QUOTES);
+    $val = stripslashes($val);
+    $val = trim($val);
+    return $val;
+}
