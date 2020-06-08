@@ -74,8 +74,9 @@ $route['london'] = 'londonControl/index';
 $route['london/add-invoice'] = 'londonControl/add_invoice';
 $route['london/stock-invoice'] = 'londonControl/stock_invoice';
 $route['london/upload-invoice'] = 'londonControl/upload_invoice';
-$route['london/update-invoice'] = 'londonControl/update_invoice';
 $route['london/update-stock-invoice'] = 'londonControl/update_stock_invoice';
+$route['london/update-stock'] = 'londonControl/update_stock';
+
 
 
 

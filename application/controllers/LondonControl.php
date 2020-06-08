@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class LondonControl extends CI_Controller
@@ -57,7 +60,7 @@ class LondonControl extends CI_Controller
 		$result['count'] = ($result['r'] != 0) ? count($result['r']) : 0;
 
 		$this->load->view('london/layout/header');
-		$this->load->view('london/layout/sidenavbar',$result);
+		$this->load->view('london/layout/sidenavbar', $result);
 		$this->load->view('london/pages/stock-invoice', $result);
 		$this->load->view('london/layout/footer');
 	}
@@ -118,7 +121,7 @@ class LondonControl extends CI_Controller
 						$result = $this->CustomModel->insertBatch($tablename, $rows);
 						// print_r($result);
 						if ($result > 0) {
-							echo json_encode(array('messages' => 'Invoice submited successfuly', 'type' => 'success'));
+							echo json_encode(array('messages' => 'Invoice submited successfully', 'type' => 'success'));
 						} else {
 							echo json_encode(array('messages' => 'Something went worng please contact IT', 'type' => 'error'));
 						}
@@ -235,7 +238,7 @@ class LondonControl extends CI_Controller
 					$condition = array('send_status' => SENT, 'id' => $id);
 					$result = $this->CustomModel->selectAllFromWhere($tableName, $condition);
 					if ($result > 0) {
-						$data = array('send_status' => REJECTED ,'reject_reason'=>$remark);
+						$data = array('send_status' => REJECTED, 'reject_reason' => $remark);
 						$res = $this->CustomModel->update_table($tableName, $condition, $data);
 						if ($res > 0) {
 							echo $response = json_encode(array('message' => 'Success! Invoices rejected', 'type' => 'success'), true);
@@ -258,5 +261,111 @@ class LondonControl extends CI_Controller
 		$this->load->view('london/layout/sidenavbar');
 		$this->load->view('london/pages/update-invoice');
 		$this->load->view('london/layout/footer');
+	}
+
+	function get_item_batch()
+	{
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+			// $tableName = "london_stock";
+			// $condition = array();
+			$result = $this->CustomModel->get_batch_number();
+			if ($result > 0) {
+				echo $response = json_encode($result, true);
+			} else {
+				echo $response = json_encode(array('message' => 'No batch', 'type' => 'danger'), true);
+			}
+		}
+	}
+
+	function get_item_code()
+	{
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+			$invoiceNumber = $_POST['inv'];
+			$batch = $_POST['batch'];
+			$tableName = "london_stock";
+			$condition = array(
+				'invoice_number' => $invoiceNumber,
+				'invoice_date' => $batch
+
+			);
+			$result = $this->CustomModel->selectAllFromWhere($tableName, $condition);
+			if ($result > 0) {
+				echo $response = json_encode($result, true);
+			} else {
+				echo $response = json_encode(array('message' => 'No item', 'type' => 'danger'), true);
+			}
+		}
+	}
+
+	public function update_stock($var = null)
+	{
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			if (!empty($_POST)) {
+				// print_r($_POST);
+				$invoiceNumber = $this->input->post('invoiceNumber');
+				$tableName = 'london_sold_stock';
+				$condition = array('invoice_number' => validateInput($invoiceNumber));
+				$result = $this->CustomModel->getWhere($tableName, $condition);
+				$timestamp = date("Y-m-d H:i:s");
+				$error = [];				// print_r($result);
+				if ($result > 0) {
+					echo json_encode(array('messages' => 'Invoice already exist', 'type' => 'warning'));
+				} else {
+					$productlist =  $this->input->post('products');
+					$doi = $this->input->post('dateOfinvoice');
+					$date = yymmdd($doi);
+					$rows = array();
+					$stock_table = 'london_stock';
+					for ($i = 0; $i < count($productlist); $i++) {
+						$condition = array(
+							'invoice_number' => $productlist[$i]['invoiceNumber'],
+							'item_code' => validateInput($productlist[$i]['productCode']),
+							'invoice_date' => $productlist[$i]['productBatch']
+						);
+						$result = $this->CustomModel->getWhere($stock_table, $condition);
+						$updated_stok = 0;
+						$opening_stock = $result[0]['qty'];
+						$closing_stock = $productlist[$i]['productQuantity'];
+						if ($opening_stock >= $closing_stock) {
+							$updated_stok = $opening_stock - $closing_stock;
+							$Update_arr = array('closing_stock' => $updated_stok, 'last_closing' => $timestamp);
+							$update_table = $this->CustomModel->update_table($stock_table, $condition, $Update_arr);
+							$data = array(
+								'invoice_number' => validateInput($invoiceNumber),
+								'batch_number' => validateInput($productlist[$i]['productBatch']),
+								'invoice_date' => $date,
+								'item_code' => validateInput($productlist[$i]['productCode']),
+								'item_details' => validateInput($productlist[$i]['productDetails']),
+								'sold_qty' => $productlist[$i]['productQuantity'],
+								'rate' => $productlist[$i]['productRate'],
+								'amount' => $productlist[$i]['productAmount'],
+								'updated_by' => $_SESSION['userInfo']['username'],
+								'last_upate' => $timestamp
+							);
+							array_push($rows, $data);
+
+						} else {
+							$data = array(
+								'batch_number' => validateInput($productlist[$i]['productBatch']),
+								'item_code' => validateInput($productlist[$i]['productCode']),
+								'sold_qty' => $productlist[$i]['productQuantity'],
+								'messages'=>'Opening Stock is less then sold unit'
+							);
+							array_push($error,$data);
+						}
+					}
+					// Inserting sold item invoice
+					$result = $this->CustomModel->insertBatch($tableName, $rows);
+					// print_r($result);
+					if ($result > 0) {
+						echo json_encode(array('messages' => 'Invoice saved successfully', 'type' => 'success', 'error'=>$error));
+					} else {
+						echo json_encode(array('messages' => 'Something went worng please contact IT', 'type' => 'danger'));
+					}
+				}
+			}
+		}
 	}
 }

@@ -88,4 +88,11 @@ class CustomModel extends ci_model
         return ($result != null) ? true : false;
         
     }
+
+    public function get_batch_number()
+    {
+        $query="SELECT *  FROM `london_stock` GROUP by invoice_date"; // Here invoice date is trited as batch number
+        $result=$this->db->query($query)->result_array();
+        return ($result!=null)?$result:false;
+    }
 }

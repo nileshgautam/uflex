@@ -36,11 +36,12 @@
   <script src=" <?php echo base_url()?>assets/custom/js/london.js"></script>
   <script src=" <?php echo base_url()?>assets/custom/js/add-invoice-product.js"></script>
   <script src=" <?php echo base_url()?>assets/custom/js/upload_csv.js"></script>
+  <script src="<?php echo base_url('assets/custom/js/update-stock.js')?>"></script>
   <!-- Page level plugins -->
-  <script src=" <?php echo base_url()?>assets/vendor/chart.js/Chart.min.js"></script>
+  <!-- <script src=" <?php echo base_url()?>assets/vendor/chart.js/Chart.min.js"></script> -->
   <!-- Page level custom scripts -->
-  <script src=" <?php echo base_url()?>assets/js/demo/chart-area-demo.js"></script>
-  <script src=" <?php echo base_url()?>assets/js/demo/chart-pie-demo.js"></script>
+  <!-- <script src=" <?php echo base_url()?>assets/js/demo/chart-area-demo.js"></script>
+  <script src=" <?php echo base_url()?>assets/js/demo/chart-pie-demo.js"></script> -->
   <!-- datatable -->
   <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"></script>
