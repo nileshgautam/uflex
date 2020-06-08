@@ -187,6 +187,7 @@ $(function () {
         }
         return error;
     }
+    
     // function to update stock for london outlate
     $('.update-stock').click(function () {
         let error = false;

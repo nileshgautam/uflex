@@ -64,3 +64,10 @@
     display: flex !important;
     justify-content: center !important;
 }
+
+.w-100{
+    width: 150px !important;
+}
+.fs-14{
+    font-size: 14px !important;
+}
