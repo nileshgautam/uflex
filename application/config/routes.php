@@ -53,12 +53,13 @@ $route['default_controller'] = 'UserAuthenticationControl';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// custom url
-
+// Custom url
+// Login
 $route['forgot-password'] = 'UserAuthenticationControl/forgotpassword';
 $route['/'] = 'UserAuthenticationControl/index';
 $route['logout'] = 'UserAuthenticationControl/logout';
 
+// India outlet url routing
 $route['india'] = 'IndiaControl/index';
 $route['invoice'] = 'IndiaControl/invoice';
 $route['sent-invoice'] = 'IndiaControl/sent_invoice';
@@ -69,20 +70,27 @@ $route['upload-multiple-invoce'] = 'IndiaControl/uploadmultipleinvoce';
 $route['submit-invoice'] = 'IndiaControl/postinvoice';
 $route['invoice-format'] = 'sample_file/invoceUploadformat.csv';
 
-// london login
+// London outlet url routing
 $route['london'] = 'londonControl/index';
 $route['london/add-invoice'] = 'londonControl/add_invoice';
 $route['london/stock-invoice'] = 'londonControl/stock_invoice';
 $route['london/upload-invoice'] = 'londonControl/upload_invoice';
 $route['london/update-stock-invoice'] = 'londonControl/update_stock_invoice';
 $route['london/update-stock'] = 'londonControl/update_stock';
+$route['london/update-invoice'] = 'londonControl/update_invoice';
 
-
-
-
-
-$route['admin'] = 'adminControl/index';
+// Manager url routing 
 $route['manager'] = 'managerControl/index';
+$route['manager/product-list'] = 'managerControl/product_list';
+$route['manager/pending-invoice'] = 'managerControl/pending_invoice';
+$route['manager/ageing-stock'] = 'managerControl/ageing_stock';
+$route['manager/reconciliation-report'] = 'managerControl/reconciliation_report';
+
+// Admin url routing
+$route['admin'] = 'adminControl/index';
+$route['admin/users'] = 'adminControl/users_list';
+$route['admin/edit'] = 'adminControl/edit_users';
+$route['admin/add-user'] = 'adminControl/add_users';
 
 
 
