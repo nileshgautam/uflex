@@ -47,7 +47,6 @@ class LondonControl extends CI_Controller
 
 		$this->load->view('london/layout/footer');
 	}
-
 	public function stock_invoice()
 	{
 		$tableName = 'london_stock';
@@ -64,7 +63,7 @@ class LondonControl extends CI_Controller
 		$this->load->view('london/pages/stock-invoice', $result);
 		$this->load->view('london/layout/footer');
 	}
-
+	// Function to show add invoice view 
 	public function add_invoice()
 	{
 		$this->load->view('london/layout/header');
@@ -73,6 +72,7 @@ class LondonControl extends CI_Controller
 		$this->load->view('london/layout/footer');
 	}
 
+	// Function to show upload multiple invoice view
 	public function upload_invoice()
 	{
 		$this->load->view('london/layout/header');
@@ -80,6 +80,7 @@ class LondonControl extends CI_Controller
 		$this->load->view('london/pages/upload-multiple-invoce');
 		$this->load->view('london/layout/footer');
 	}
+
 	// INSERT INVOICE details INTO THE DATABASE
 
 	public function update_invoice()
@@ -107,6 +108,7 @@ class LondonControl extends CI_Controller
 								'invoice_date' => $date,
 								'item_code' => validateInput($productlist[$i]['producCode']),
 								'item_description' => validateInput($productlist[$i]['producDetails']),
+								'closing_stock' => $productlist[$i]['productQuantity'],
 								'qty' => $productlist[$i]['productQuantity'],
 								'rate' => $productlist[$i]['productRate'],
 								'amount' => $productlist[$i]['productAmount'],
@@ -130,7 +132,7 @@ class LondonControl extends CI_Controller
 			}
 		}
 	}
-
+	// Function to show invoice list as a notification
 	public function invoice()
 	{
 		$tableName = 'master_invoice';
@@ -143,7 +145,7 @@ class LondonControl extends CI_Controller
 		$this->load->view('london/pages/invoice', $result);
 		$this->load->view('london/layout/footer');
 	}
-
+	// Accept multiple invoice to update stock
 	public function accept_invoice_multiple()
 	{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -171,11 +173,13 @@ class LondonControl extends CI_Controller
 							'invoice_date' => $result[0]['doi'],
 							'item_description' => $result[0]['product_description'],
 							'qty' => $result[0]['product_qty'],
+							'closing_stock' => $result[0]['product_qty'],
 							'amount' => $result[0]['product_amount'],
 							'rate' => $result[0]['product_rate'],
 							'update_by' => $_SESSION['userInfo']['username'],
 							'last_updated' => $timestamp
 						);
+
 						$tablename = 'london_stock';
 						$inr_data = $this->CustomModel->insertInto($tablename, $data);
 						$res = $this->CustomModel->update_table($tableName, $condition, $status);
@@ -187,7 +191,7 @@ class LondonControl extends CI_Controller
 			}
 		}
 	}
-
+	// Accept single invoice to update stock
 	public function accept_invoice()
 	{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -207,6 +211,7 @@ class LondonControl extends CI_Controller
 						'invoice_date' => $result[0]['doi'],
 						'item_description' => $result[0]['product_description'],
 						'qty' => $result[0]['product_qty'],
+						'closing_stock' => $result[0]['product_qty'],
 						'amount' => $result[0]['product_amount'],
 						'rate' => $result[0]['product_rate'],
 						'update_by' => $_SESSION['userInfo']['username'],
@@ -226,7 +231,7 @@ class LondonControl extends CI_Controller
 			}
 		}
 	}
-
+	// Reject single invoice to update stock
 	public function reject_invoice()
 	{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -254,7 +259,7 @@ class LondonControl extends CI_Controller
 			}
 		}
 	}
-
+	// Update sold stock  to into the database
 	public function update_stock_invoice($var = null)
 	{
 		$this->load->view('london/layout/header');
@@ -262,7 +267,7 @@ class LondonControl extends CI_Controller
 		$this->load->view('london/pages/update-invoice');
 		$this->load->view('london/layout/footer');
 	}
-
+	// Get product batch number form DB
 	function get_item_batch()
 	{
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -277,7 +282,7 @@ class LondonControl extends CI_Controller
 			}
 		}
 	}
-
+	// Get product item_code  form DB
 	function get_item_code()
 	{
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -298,7 +303,7 @@ class LondonControl extends CI_Controller
 			}
 		}
 	}
-
+	// Function to update sold stock in DB
 	public function update_stock($var = null)
 	{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -330,8 +335,11 @@ class LondonControl extends CI_Controller
 						$closing_stock = $productlist[$i]['productQuantity'];
 						if ($opening_stock >= $closing_stock) {
 							$updated_stok = $opening_stock - $closing_stock;
+							
 							$Update_arr = array('closing_stock' => $updated_stok, 'last_closing' => $timestamp);
+
 							$update_table = $this->CustomModel->update_table($stock_table, $condition, $Update_arr);
+
 							$data = array(
 								'invoice_number' => validateInput($invoiceNumber),
 								'batch_number' => validateInput($productlist[$i]['productBatch']),
@@ -345,22 +353,21 @@ class LondonControl extends CI_Controller
 								'last_upate' => $timestamp
 							);
 							array_push($rows, $data);
-
 						} else {
 							$data = array(
 								'batch_number' => validateInput($productlist[$i]['productBatch']),
 								'item_code' => validateInput($productlist[$i]['productCode']),
 								'sold_qty' => $productlist[$i]['productQuantity'],
-								'messages'=>'Opening Stock is less then sold unit'
+								'messages' => 'Opening Stock is less then sold unit'
 							);
-							array_push($error,$data);
+							array_push($error, $data);
 						}
 					}
 					// Inserting sold item invoice
 					$result = $this->CustomModel->insertBatch($tableName, $rows);
 					// print_r($result);
 					if ($result > 0) {
-						echo json_encode(array('messages' => 'Invoice saved successfully', 'type' => 'success', 'error'=>$error));
+						echo json_encode(array('messages' => 'Invoice saved successfully', 'type' => 'success', 'error' => $error));
 					} else {
 						echo json_encode(array('messages' => 'Something went worng please contact IT', 'type' => 'danger'));
 					}

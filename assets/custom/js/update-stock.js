@@ -29,22 +29,22 @@ $(function () {
 
         for (let i = 0; i < len; i++) {
             let rowTemplate = $(` <tr>
-            <td><select id="product-batch${list[i].row_id}" class="form-control fs-14 product-batch no-border">
+            <td><select id="product-batch${list[i].row_id}" class="form-control fs-14 product-batch no-border w-100">
             <option>Select batch no.</option>
 
             </select></td>
 
-            <td><select class="form-control fs-14 product-code no-border" id="product-code${list[i].row_id}" disabled="disabled">
+            <td><select class="form-control w-100 fs-14 product-code no-border" id="product-code${list[i].row_id}" disabled="disabled">
             <option>Select code.</option>
             </select></td>
 
             <td> <textarea disabled name="producDetails${list[i].row_id}" id="product-details${list[i].row_id}"  class="form-control product-details w-350 no-border" placeholder="Enter product details">${list[i].productDetails}</textarea> </td>
 
-            <td> <input type="number" min=0 class="form-control no-border clsosing" disabled id="closing${list[i].row_id}" name="closing-stock${list[i].row_id}" value="${list[i].closing}"></td>
+            <td> <input type="number" min=0 class="form-control no-border clsosing w-100 " disabled id="closing${list[i].row_id}" name="closing-stock${list[i].row_id}" value="${list[i].closing}"></td>
 
-            <td> <input type="number" min=0 class="form-control no-border product-quantity" id="product-quantity" name="product-quantity${list[i].row_id}" placeholder="Quantity" value="${list[i].productQuantity}"></td>
+            <td> <input type="number" min=0 class="form-control no-border w-100 product-quantity" id="product-quantity" name="product-quantity${list[i].row_id}" placeholder="Quantity" value="${list[i].productQuantity}"></td>
 
-            <td><input type="number" min=0 class="form-control no-border product-rate" id="product-rate" name="product-rate${list[i].row_id}" placeholder="00.00" value="${list[i].productRate}"></td>
+            <td><input type="number" min=0 class="form-control w-100 no-border product-rate" id="product-rate" name="product-rate${list[i].row_id}" placeholder="00.00" value="${list[i].productRate}"></td>
 
             <td><input type="number" min=0 class="form-control no-border product-amount w-100" id="product-amount" name="product-amount${list[i].row_id}" placeholder="00.00" value="${list[i].productAmount}"></td>
 
@@ -134,6 +134,8 @@ $(function () {
         }
     }
 
+ 
+
     function load_data() {
         let Input = $(this);
         let description = $(this).children("option:selected").attr('data-description');
@@ -157,6 +159,7 @@ $(function () {
         // console.log(inv);
 
     }
+    
     function deleterow_click() {
         let delete_row = $(this);
         let row_id = delete_row.data('id');

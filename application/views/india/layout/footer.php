@@ -35,7 +35,7 @@
 <script src=" <?php echo base_url()?>assets/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src=" <?php echo base_url()?>assets/vendor/chart.js/Chart.min.js"></script>
+  <!-- <script src=" <?php echo base_url()?>assets/vendor/chart.js/Chart.min.js"></script> -->
 
   <!-- custom js -->
   <script src="<?php echo base_url()?>assets/custom/js/add-invoice-product.js"></script>
