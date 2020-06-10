@@ -11,30 +11,34 @@
                 <div class="col-sm-12">
                     <table class="table table-bordered dataTable" id="users-dataTable">
                         <thead>
-                            <tr> 
+                            <tr>
                                 <th rowspan="1" colspan="1">Sr.No.</th>
                                 <th rowspan="1" colspan="1">Name</th>
+                                <th rowspan="1" colspan="1">Gender</th>
                                 <th rowspan="1" colspan="1">DOB</th>
                                 <th rowspan="1" colspan="1">Email</th>
                                 <th rowspan="1" colspan="1">Role</th>
+                                <th rowspan="1" colspan="1">Joining Date</th>
                                 <th rowspan="1" colspan="1">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $i = 1;
-                            if (!empty($invoice)) {
-                                foreach ($invoice as $item) {
-                                    $date = ddmmyy($item['doi']);
+                            if (!empty($users)) {
+                                foreach ($users as $item) {
+                                    $dob = ddmmyy($item['dob']);
+                                    $jod = ddmmyy($item['joining_date']);
                             ?>
                                     <tr role="row">
-                                        
                                         <td><?php echo $i++; ?></td>
-                                        <td><?php echo RemoveSpecialChar($item['invoice_number']) ?></td>
-                                        <td><?php echo  $date ?></td>
-                                        <td><?php echo RemoveSpecialChar($item['product_code']) ?></td>
-                                        <td><?php echo RemoveSpecialChar($item['product_description']) ?></td>
-                                        <td><a href="<?php echo base_url('IndiaControl/eiditinvoce').'/'.base64_encode($item['invoice_number']).'/'.base64_encode( $item['product_code']) ?>" class="btn btn-warning btn-circle btn-invoice btn-space" title="edit">
+                                        <td><?php echo ucfirst($item['first_name'] . ' ' . $item['last_name']) ?></td>
+                                        <td><?php echo ucfirst($item['gender']) ?></td>
+                                        <td><?php echo $dob ?></td>
+                                        <td><?php echo $item['email'] ?></td>
+                                        <td><?php echo $item['role'] ?></td>
+                                        <td><?php echo $jod ?></td>
+                                        <td><a href="<?php echo base_url('admin/edit-user/') . '/' . base64_encode($item['id']) ?>" class="btn btn-warning btn-circle align-center btn-sm btn-space" title="edit">
                                                 <i class="fas fa-edit"></i>
                                             </a></td>
                                     </tr>
@@ -44,7 +48,7 @@
                             ?>
                         </tbody>
                     </table>
-                
+
                 </div>
             </div>
         </div>

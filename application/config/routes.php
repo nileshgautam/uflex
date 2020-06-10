@@ -89,8 +89,11 @@ $route['manager/reconciliation-report'] = 'managerControl/reconciliation_report'
 // Admin url routing
 $route['admin'] = 'adminControl/index';
 $route['admin/users'] = 'adminControl/users_list';
-$route['admin/edit'] = 'adminControl/edit_users';
+$route['admin/edit-user/(:any)'] = 'adminControl/edit_users/$1';
 $route['admin/add-user'] = 'adminControl/add_users';
+$route['admin/get-state'] = 'adminControl/get_state';
+$route['admin/get-cities'] = 'adminControl/get_city';
+
 
 
 
