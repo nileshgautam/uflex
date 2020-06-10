@@ -13,6 +13,21 @@
 //     return $fdate;
 // }
 
+
+//  change date format yymmdd to DDMMYY
+
+function mdy($date)
+{
+    $date = explode("-", $date);
+    // $d=explode(" ",$date[2]);
+    $yy = $date[0];
+    $mm = $date[1];
+    $dd = $date[2];
+    $fdate = $mm .'/'. $dd .'/'.$yy;
+    return $fdate;
+}
+
+
 //  change date format yymmdd to DDMMYY
 
 function ddmmyy($date)

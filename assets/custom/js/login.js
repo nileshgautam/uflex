@@ -21,7 +21,7 @@ $(function () {
             data: form_data,
             success: function (responce) {
                 let data = JSON.parse(responce);
-                // console.log(data.msg);
+                console.log(data.msg);
                 if (data.msg == 'true') {
                     if (data.remember_me == 1) {
                         var arr = { "username": username, "password": password };
@@ -31,16 +31,17 @@ $(function () {
                         removeData('remember_me');
                     }
                 }
+                console.log(data.role);
                 if (data.role == 'admin') {
                     window.location.href = BASEURL + 'admin';
                 }
-                else if (data.role == 'ind') {
+                else if (data.role == 'User-IND') {
                     window.location.href = BASEURL + 'india';
                 }
-                else if (data.role == 'ldn') {
+                else if (data.role == 'User-LDN') {
                     window.location.href = BASEURL + 'london';
                 }
-                else if (data.role == 'manager') {
+                else if (data.role == 'Manager') {
                     window.location.href = BASEURL + 'manager';
                 }
                 else {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2020 at 02:51 PM
+-- Generation Time: Jun 10, 2020 at 03:53 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -52514,23 +52514,56 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `code` text NOT NULL,
-  `active` tinyint(1) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
-  `role` varchar(20) NOT NULL
+  `dob` date NOT NULL,
+  `gender` varchar(15) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `address` text NOT NULL,
+  `zip_pin` varchar(20) NOT NULL,
+  `mobile` varchar(15) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `state` varchar(30) NOT NULL,
+  `country` varchar(40) NOT NULL,
+  `role` varchar(20) NOT NULL,
+  `joining_date` date NOT NULL,
+  `code` text NOT NULL,
+  `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `code`, `active`, `first_name`, `last_name`, `role`) VALUES
-(1, 'london', '123456', 'london@uflex.com', '', 0, 'London- outlet', '', 'ldn'),
-(2, 'india', 'india', 'india@uflex.com', '', 0, 'India', 'outlet', 'ind'),
-(3, 'Manager', 'manager', 'manager@uflex.com', '', 0, 'UFlex', 'Manager', 'manager'),
-(4, 'admin', 'admin', 'admin@uflex.com', '', 0, 'admin', '', 'admin');
+INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `dob`, `gender`, `email`, `address`, `zip_pin`, `mobile`, `city`, `state`, `country`, `role`, `joining_date`, `code`, `active`) VALUES
+(1, 'John Doe', '123456', 'John', 'Doe', '2006-06-10', 'male', 'london@uflex.com', 'london', '', '7894561230', 'London', 'London', 'United Kingdom', 'User-LDN', '2019-12-04', '', 0),
+(2, 'Raj', 'india', 'Raj', 'Sharma', '2020-06-11', 'male', 'india@uflex.com', 'ADDDDD', '7894560', '7894561230', 'Noida', 'Uttar Pradesh', 'India', 'User-IND', '2020-06-12', '', 0),
+(3, 'Alex', 'manager', 'Alex', 'Jones', '2019-12-16', 'male', 'manager@uflex.com', 'AAAAA', '', '7894561230', 'Noida', 'Uttar Pradesh', 'India', 'Manager', '2020-06-17', '', 0),
+(4, 'admin', 'admin', 'admin', '', '0000-00-00', '', 'admin@uflex.com', '', '', '', '', '', '', 'admin', '0000-00-00', '', 0),
+(5, '', '789456', 'Hm', 'D', '2020-06-11', 'male', 'h@mail.com', 'abcd', '789', '7894561230', 'Noida', 'Uttar Pradesh', 'India', 'User-LDN', '2020-06-11', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_role`
+--
+
+CREATE TABLE `user_role` (
+  `id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `description` varchar(30) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_role`
+--
+
+INSERT INTO `user_role` (`id`, `role_id`, `description`, `status`) VALUES
+(1, 10, 'Admin', 1),
+(2, 20, 'User-LDN', 1),
+(3, 30, 'User-IND', 1),
+(4, 40, 'Manager', 1);
 
 --
 -- Indexes for dumped tables
@@ -52585,6 +52618,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_role`
+--
+ALTER TABLE `user_role`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -52634,7 +52673,13 @@ ALTER TABLE `master_states`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `user_role`
+--
+ALTER TABLE `user_role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

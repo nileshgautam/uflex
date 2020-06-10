@@ -26,7 +26,7 @@
   <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/css/dataTables.checkboxes.css" rel="stylesheet" />
 
   <script>
-    const BaseUrl = "<?php echo base_url() ?>";
+    const baseUrl = "<?php echo base_url() ?>";
   </script>
 
 </head>

@@ -76,3 +76,14 @@
     display: flex;
     justify-content: center;
 }
+
+.rs-22{
+    height: 22px !important;
+}
+
+.gender-resize{
+    display: flex;
+    justify-content: space-evenly;
+    justify-items: center;
+    margin: auto;
+}
