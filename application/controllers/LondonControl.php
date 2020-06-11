@@ -375,4 +375,17 @@ class LondonControl extends CI_Controller
 			}
 		}
 	}
+	
+	// Function for change password
+	function change_password()
+	{
+		$header_data['title'] = 'UFLEX INDIA- Change Password.';
+		$this->load->view('london/layout/header');
+		// $this->load->view('layout/header', $header_data);
+		$this->load->view('london/layout/sidenavbar');
+		$this->load->view('layout/change-password-london');
+		$this->load->view('london/layout/footer');
+		// $this->load->view('layout/footer');
+
+	}
 }

@@ -14,7 +14,7 @@ class IndiaControl extends CI_Controller
 		$this->load->helper('datefilter');
 		if (!isset($_SESSION['userInfo'])) {
 			$this->session->sess_destroy();
-			redirect('UserAuthenticationControl/index');
+			redirect('/');
 		}
 	}
 
@@ -40,6 +40,8 @@ class IndiaControl extends CI_Controller
 		// $this->load->view('india/layout/index');
 		// $this->load->view('india/layout/footer');
 
+
+
 		$tableName = 'master_invoice';
 		$condition = array('send_status' => I_NEW);
 
@@ -50,17 +52,20 @@ class IndiaControl extends CI_Controller
 		$result['rejected'] = $this->CustomModel->selectAllFromWhere($tableName, $condition1);
 		$rejected['count'] = ($result['rejected'] != 0) ? count($result['rejected']) : 0;
 
+		$header_data['title'] = "UFLEX India- Invoice list";
 
-		$this->load->view('india/layout/header');
+		$this->load->view('layout/header', $header_data);
 		$this->load->view('india/layout/sidenavbar', $rejected);
 		$this->load->view('india/pages/invoice', $result);
-		$this->load->view('india/layout/footer');
-	}
+		// $this->load->view('india/layout/footer');
+		$this->load->view('layout/footer');
 
+	}
+	// Function for show list of all sent invoice.
 	public function sent_invoice($var = null)
 	{
-		# code...
-		// sent-invoice
+
+		$header_data['title'] = "UFLEX India- Sent invoice list";
 		$tableName = 'master_invoice';
 		$condition = "send_status='" . SENT . "'OR send_status='" . REJECTED . "' OR send_status='" . ACCEPT . "'";
 		$result['invoice'] = $this->CustomModel->selectAllFromWhere($tableName, $condition);
@@ -68,14 +73,17 @@ class IndiaControl extends CI_Controller
 
 		$result['rejected'] = $this->CustomModel->selectAllFromWhere($tableName, $condition1);
 		$rejected['count'] = ($result['rejected'] != 0) ? count($result['rejected']) : 0;
-		$this->load->view('india/layout/header');
+		$this->load->view('layout/header', $header_data);
 		$this->load->view('india/layout/sidenavbar', $rejected);
 		$this->load->view('india/pages/sent-invoice', $result);
-		$this->load->view('india/layout/footer');
+		// $this->load->view('india/layout/footer');
+		$this->load->view('layout/footer');
+
 	}
 	// Function to Show list of all the latest invocie ever
 	public function invoice()
 	{
+		$header_data['title'] = "UFLEX India- Invoice list";
 		$tableName = 'master_invoice';
 		$condition = array('send_status' => I_NEW);
 
@@ -87,26 +95,34 @@ class IndiaControl extends CI_Controller
 		$rejected['count'] = ($result['rejected'] != 0) ? count($result['rejected']) : 0;
 
 
-		$this->load->view('india/layout/header');
+		$this->load->view('layout/header');
 		$this->load->view('india/layout/sidenavbar', $rejected);
 		$this->load->view('india/pages/invoice', $result);
-		$this->load->view('india/layout/footer');
+		// $this->load->view('india/layout/footer');
+		$this->load->view('layout/footer');
+
 	}
 	// Function to show add invoice details 
 	public function addinvoice()
 	{
-		$this->load->view('india/layout/header');
+		$header_data['title'] = "UFLEX India- Add invoice";
+		$this->load->view('layout/header', $header_data);
 		$this->load->view('india/layout/sidenavbar');
 		$this->load->view('india/pages/add-invoice');
-		$this->load->view('india/layout/footer');
+		// $this->load->view('india/layout/footer');
+		$this->load->view('layout/footer');
+
 	}
 	// Function to show all upload multiple invocie by csv file 
 	public function uploadmultipleinvoce()
 	{
-		$this->load->view('india/layout/header');
+		$header_data['title'] = "UFLEX India- Upload multiple invoice";
+		$this->load->view('layout/header', $header_data);
 		$this->load->view('india/layout/sidenavbar');
 		$this->load->view('india/pages/upload-multiple-invoce');
-		$this->load->view('india/layout/footer');
+		// $this->load->view('india/layout/footer');
+		$this->load->view('layout/footer');
+
 	}
 	// INSERT INVOICE details INTO THE DATABASE
 	function postinvoice()
@@ -163,10 +179,11 @@ class IndiaControl extends CI_Controller
 		$tableName = 'master_invoice';
 		$condition = array('invoice_number' => base64_decode($invoiceNumber), 'product_code' => base64_decode($productCode));
 		$result['invoice'] = $this->CustomModel->selectAllFromWhere($tableName, $condition);
-		$this->load->view('india/layout/header');
+		$header_data['title'] = "UFLEX India- Edit invoice";
+		$this->load->view('layout/header', $header_data);
 		$this->load->view('india/layout/sidenavbar');
 		$this->load->view('india/pages/edit-invoice', $result);
-		$this->load->view('india/layout/footer');
+		$this->load->view('layout/footer');
 	}
 
 	// Function to Update invoce details 
@@ -215,19 +232,33 @@ class IndiaControl extends CI_Controller
 	function reject_list($id = null)
 	{
 		if ($id != '') {
-		
+
 			$r_id = base64_decode($id);
-		
+
 			$tableName = 'master_invoice';
-		
-			$condition = array('id'=>$r_id);
+
+			$condition = array('id' => $r_id);
 
 			$result['rejected'] = $this->CustomModel->selectAllFromWhere($tableName, $condition);
-	
-			$this->load->view('india/layout/header');
+			$header_data['title'] = 'UFLEX INDIA- Reject list';
+			$this->load->view('layout/header', $header_data);
 			$this->load->view('india/layout/sidenavbar');
 			$this->load->view('india/pages/rejecte-list', $result);
-			$this->load->view('india/layout/footer');
+			// $this->load->view('india/layout/footer');
+			$this->load->view('layout/footer');
+
 		}
+	}
+
+	// Function for change password
+	function change_password()
+	{
+		$header_data['title'] = 'UFLEX INDIA- Change Password.';
+		$this->load->view('layout/header', $header_data);
+		$this->load->view('india/layout/sidenavbar');
+		$this->load->view('layout/change-password-india');
+		// $this->load->view('india/layout/footer');
+		$this->load->view('layout/footer');
+
 	}
 }

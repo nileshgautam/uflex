@@ -140,12 +140,18 @@ $(function () {
         }
     });
 
-    $('#cnf-password').on('keyup', function () {
+    $('#cnf-password').on('change', function () {
 
         // alert('hi');
         let password = $('#password').val();
         let cnfpassword = $('#cnf-password').val();
+
+        console.log(password);
+        console.log(cnfpassword);
+
+
         if (password != cnfpassword) {
+            
             this.style.outline = '1px solid red';
             error = true;
             // showAlert('Error! Password not match...', 'danger');
@@ -192,7 +198,98 @@ $(function () {
         }
 
     });
-    
+
+    $('#back-to-users').click(function () {
+        window.location.href = baseUrl + 'admin/users';
+    });
 });
+
+// show/hide password
+$(document).ready(function () {
+    $(".show_hide_password a").on('click', function (event) {
+        event.preventDefault();
+        if ($('.show_hide_password input').attr("type") == "text") {
+            $('.show_hide_password input').attr('type', 'password');
+            $('.show_hide_password i').addClass("fa-eye-slash");
+            $('.show_hide_password i').removeClass("fa-eye");
+        } else if ($('.show_hide_password input').attr("type") == "password") {
+            $('.show_hide_password input').attr('type', 'text');
+            $('.show_hide_password i').removeClass("fa-eye-slash");
+            $('.show_hide_password i').addClass("fa-eye");
+        }
+    });
+});
+
+// Function to update user's current password.
+$(function () {
+    let error = false;
+    // Function to validate old password
+    $('#currentPassword').on('change', function () {
+        let current_password = $(this).val();
+        // console.log(current_password);
+        if (current_password == '') {
+            $('#current-password-message').empty();
+            error = true;
+        }
+        const URL = baseUrl + 'check-password';
+        let form_data = { password: current_password };
+        if (current_password != '') {
+            $.post(URL, form_data, function (data) {
+                let respose = JSON.parse(data);
+                // console.log(respose);
+                if (respose.res == true) {
+                    error = false;
+                    $('#current-password-message').empty();
+                } if (respose.res == false) {
+                    error = true;
+                    $('#current-password-message').text('Password not match');
+                } if (respose.res != true && respose.res != false) {
+                    showAlert(respose.res, respose.type);
+                }
+            });
+        }
+
+
+    });
+
+    //Function for submit Form_data into the DB
+    $('#change-password').submit(function (e) {
+        e.preventDefault();
+
+        let cnferror = $('#cnfp-errmsg');
+        let newPassword = $('#new-password').val();
+        let confirmNewPassword = $('#confirm-password').val();
+        let oldPassword = $('#currentPassword').val();
+
+        if (newPassword != confirmNewPassword) {
+            cnferror.html('Password not matched');
+            error = true;
+        }
+
+        const URL = baseUrl + 'update-password';
+        let form_data = {
+            newpassword: confirmNewPassword,
+            oldpassword: oldPassword
+        };
+        if (!error) {
+            $.post(URL, form_data, function (data) {
+                let res = JSON.parse(data);
+                if (res) {
+                    showAlert(res.message, res.type);
+                }
+            });
+        }
+    });
+    // Function validate new password
+    // console.log(newPassword);
+    // confirmNewPassword.change(function () {
+    //     if (newPassword != $(this).val()) {
+    //         console.log(newPassword);
+    //         console.log(confirmNewPassword.val());
+    //         cnferror.html('Password not matched');
+    //         error = true;
+    //     }
+});
+
 
 

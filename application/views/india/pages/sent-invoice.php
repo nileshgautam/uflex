@@ -2,7 +2,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-info ib">Sent Invoice List</h6>
-            <a href="<?php echo base_url('invoice') ?>" class="btn btn-warning btn-circle btn-invoice" title="Back">
+            <a href="<?php echo base_url('india/invoice') ?>" class="btn btn-warning btn-circle btn-invoice" title="Back">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 </a>
         </div>

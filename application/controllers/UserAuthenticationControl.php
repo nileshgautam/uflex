@@ -15,73 +15,72 @@ class UserAuthenticationControl extends CI_Controller
     // Show login page
     public function index()
     {
-		$this->load->view('login/login');
+        $this->load->view('login/login');
     }
 
     public function forgotpassword()
-	{
-		$this->load->view('login/forgot-password');
-	}
+    {
+        $this->load->view('login/forgot-password');
+    }
 
     public function dashboard()
     {
-        $data['users']=$this->CustomModel->getAllUsers();
+        $data['users'] = $this->CustomModel->getAllUsers();
         $this->load->view('layout/header');
         $this->load->view('pages/dashboard', $data);
         $this->load->view('layout/footer');
     }
 
-   // validate user login by role
-   function auth()
-   {
-    //    print_r($_POST);die;
-       $username = $this->input->post('inputEmail');
-       $password = $this->input->post('password');
-       $remember_me = $this->input->post('remember_me');
-       if (isset($remember_me)) {
-           $remember_me = 1;
-       } else {
-           $remember_me = 0;
-       }
-       if ($username == "" &&  $password == "") {
-           $message = json_encode(array('msg' => 'Warning! username and password are required', 'type' => 'danger'), true);
-           echo $message;
-       } elseif ($username == "") {
-           $message = json_encode(array('msg' => 'Warning! username is required', 'type' => 'danger'), true);
-           echo $message;
-       } elseif ($password == '') {
-           $message = json_encode(array('msg' => 'Warning! password is required', 'type' => 'danger'), true);
-           echo $message;
-       } else {
-           $this->load->model('CustomModel');
-           $tableName = 'users';
-           $condition = array('email' => $username, 'password' => $password);
-           $result = $this->CustomModel->selectAllFromWhere($tableName, $condition);
-           if ($result == 0) {
-               $message = json_encode(array('msg' => 'Please enter vaild details', 'type' => 'danger'), true);
-               echo $message;
-           } elseif ($result != 0) {
-               $data  = $result;
-               $id    = $data[0]['id'];
-               $name  = $data[0]['first_name'] . " " . $data[0]['last_name'];
-               $email = $data[0]['email'];
-               $user_role = $data[0]['role'];
-               $sesdata = array(
-                   'id'       =>  $id,
-                   // 'company' => $company_id,
-                   'username'  => $name,
-                   'email'     => $email,
-                   'user_role' => $user_role,
-                   'logged_in' => TRUE
-               );
-               $this->session->set_userdata("userInfo", $sesdata);
+    // validate user login by role
+    function auth()
+    {
+        //    print_r($_POST);die;
+        $username = $this->input->post('inputEmail');
+        $password = $this->input->post('password');
+        $remember_me = $this->input->post('remember_me');
+        if (isset($remember_me)) {
+            $remember_me = 1;
+        } else {
+            $remember_me = 0;
+        }
+        if ($username == "" &&  $password == "") {
+            $message = json_encode(array('msg' => 'Warning! username and password are required', 'type' => 'danger'), true);
+            echo $message;
+        } elseif ($username == "") {
+            $message = json_encode(array('msg' => 'Warning! username is required', 'type' => 'danger'), true);
+            echo $message;
+        } elseif ($password == '') {
+            $message = json_encode(array('msg' => 'Warning! password is required', 'type' => 'danger'), true);
+            echo $message;
+        } else {
+            $this->load->model('CustomModel');
+            $tableName = 'users';
+            $condition = array('email' => $username, 'password' => $password);
+            $result = $this->CustomModel->selectAllFromWhere($tableName, $condition);
+            if ($result == 0) {
+                $message = json_encode(array('msg' => 'Please enter vaild details', 'type' => 'danger'), true);
+                echo $message;
+            } elseif ($result != 0) {
+                $data  = $result;
+                $id    = $data[0]['id'];
+                $name  = $data[0]['first_name'] . " " . $data[0]['last_name'];
+                $email = $data[0]['email'];
+                $user_role = $data[0]['role'];
+                $sesdata = array(
+                    'id'       =>  $id,
+                    // 'company' => $company_id,
+                    'username'  => $name,
+                    'email'     => $email,
+                    'user_role' => $user_role,
+                    'logged_in' => TRUE
+                );
+                $this->session->set_userdata("userInfo", $sesdata);
 
-               $result = json_encode(array('msg' => 'true', 'type' => 'success', 'role'=>$user_role, 'remember_me' => $remember_me), true);
-               echo $result;
-           }
-       }
-                  
-   }
+                $result = json_encode(array('msg' => 'true', 'type' => 'success', 'role' => $user_role, 'remember_me' => $remember_me), true);
+                echo $result;
+            }
+        }
+    }
 
     // Check for user login process
     // public function user_login_process()
@@ -131,7 +130,7 @@ class UserAuthenticationControl extends CI_Controller
     {
         // Destroy session data
         $this->session->sess_destroy();
-        redirect(__CLASS__.'/');
+        redirect('/');
         // $data['message_display'] = 'Successfully Logout';
     }
 
@@ -199,8 +198,6 @@ class UserAuthenticationControl extends CI_Controller
         }
         //    redirect(__CLASS__.'/index');
     }
-
-
     public function activate()
     {
         $id =  $this->uri->segment(3);
@@ -226,19 +223,64 @@ class UserAuthenticationControl extends CI_Controller
 
         redirect(__CLASS__ . '/index');
     }
+    // Validate password for changing current password
+    public function check_password()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST)) {
 
-    // function to change password
-    // public function reset_password()
-    // {
-    //     print_r($_POST);
-        
-    //     if(!empty($_POST)){
-    //         $email=$this->input->post('resetEmail');
-    //         $checkUser = $this->CustomModel->checkUser($email);
-    //         if($checkUser!=''){
-                
-    //         }
+                $id = $_SESSION['userInfo']['id'];
+                $password = validateInput($this->input->post('password'));
 
-    //     }
-    // }
+                $table_users = "users";
+                $condition = array('id' => $id);
+                $data = $this->CustomModel->getwhere($table_users, $condition);
+
+                if ($data > 0) {
+                    if ($data[0]['password'] == $password) {
+                        echo json_encode(array('res' => true));
+                    } else {
+                        echo json_encode(array('res' => false));
+                    }
+                } else {
+                    echo json_encode(array('res' => 'OOps! Something went wrong contact IT', 'type' => 'danger'));
+                }
+            } else {
+                echo json_encode(array('res' => 'Enter current password', 'type' => 'danger'), true);
+            }
+        }
+    }
+    // Function Validating and updating current password
+    public function update_password()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST)) {
+                $id = $_SESSION['userInfo']['id'];
+                $old_password = validateInput($this->input->post('oldpassword'));
+
+                $table_users = 'users';
+
+                $where = array('id' => $id, 'password' => $old_password);
+
+                $result = $this->CustomModel->getwhere($table_users, $where); // validating record exist or not into the DB
+
+                if ($result > 0) {
+                    $new_password = validateInput($_POST['newpassword']);
+
+                    $condition = array('id' => $id);
+
+                    $data = array('password' => $new_password);
+
+                    $res = $this->CustomModel->update_table($table_users, $condition, $data); //Updating new password inTo the DB.
+                    if ($res > 0) {
+                        echo json_encode(array('message' => 'Password changed', 'type' => 'success'), true);
+                    } else {
+                        echo json_encode(array('message' => 'OOps..! Contact IT', 'type' => 'danger'), true);
+                    }
+                } else {
+                    echo json_encode(array('message' => 'Current password invalid', 'type' => 'danger'), true);
+                }
+            }
+        }
+    }
 }

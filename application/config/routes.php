@@ -59,16 +59,21 @@ $route['forgot-password'] = 'UserAuthenticationControl/forgotpassword';
 $route['/'] = 'UserAuthenticationControl/index';
 $route['logout'] = 'UserAuthenticationControl/logout';
 
+$route['check-password'] = 'UserAuthenticationControl/check_password';
+$route['update-password'] = 'UserAuthenticationControl/update_password';
+
+
+
 // India outlet url routing
 $route['india'] = 'IndiaControl/index';
-$route['invoice'] = 'IndiaControl/invoice';
-$route['sent-invoice'] = 'IndiaControl/sent_invoice';
-
-$route['add-invoice'] = 'IndiaControl/addinvoice';
-$route['edit-invoice'] = 'IndiaControl/editinvoce';
-$route['upload-multiple-invoce'] = 'IndiaControl/uploadmultipleinvoce';
+$route['india/invoice'] = 'IndiaControl/invoice';
+$route['india/sent-invoice'] = 'IndiaControl/sent_invoice';
+$route['india/add-invoice'] = 'IndiaControl/addinvoice';
+$route['india/edit-invoice'] = 'IndiaControl/editinvoce';
+$route['india/upload-multiple-invoce'] = 'IndiaControl/uploadmultipleinvoce';
 $route['submit-invoice'] = 'IndiaControl/postinvoice';
 $route['invoice-format'] = 'sample_file/invoceUploadformat.csv';
+$route['india/setting'] = 'IndiaControl/change_password';
 
 // London outlet url routing
 $route['london'] = 'londonControl/index';
@@ -78,6 +83,7 @@ $route['london/upload-invoice'] = 'londonControl/upload_invoice';
 $route['london/update-stock-invoice'] = 'londonControl/update_stock_invoice';
 $route['london/update-stock'] = 'londonControl/update_stock';
 $route['london/update-invoice'] = 'londonControl/update_invoice';
+$route['london/setting'] = 'londonControl/change_password';
 
 // Manager url routing 
 $route['manager'] = 'managerControl/index';
@@ -85,6 +91,7 @@ $route['manager/product-list'] = 'managerControl/product_list';
 $route['manager/pending-invoice'] = 'managerControl/pending_invoice';
 $route['manager/ageing-stock'] = 'managerControl/ageing_stock';
 $route['manager/reconciliation-report'] = 'managerControl/reconciliation_report';
+$route['manager/setting'] = 'managerControl/change_password';
 
 // Admin url routing
 $route['admin'] = 'adminControl/index';
@@ -93,6 +100,8 @@ $route['admin/edit-user/(:any)'] = 'adminControl/edit_users/$1';
 $route['admin/add-user'] = 'adminControl/add_users';
 $route['admin/get-state'] = 'adminControl/get_state';
 $route['admin/get-cities'] = 'adminControl/get_city';
+$route['admin/setting'] = 'adminControl/setting';
+
 
 
 

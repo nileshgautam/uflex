@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title><?php echo $title ?></title>
+  <title><?php echo (isset($title))?$title:''; ?></title>
 
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url() ?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -16,17 +16,24 @@
   <!-- Custom styles for this template-->
 
   <link href="<?php echo base_url() ?>assets/css/sb-admin-2.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/custom/css/style.css">
   <!-- JQ cdn -->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
   <!-- Data table cdn link -->
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
   <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/css/dataTables.checkboxes.css" rel="stylesheet" />
 
+<!-- datepicker -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bootstrap-datepicker/css/bootstrap-datepicker.css">
+
   <script>
     const baseUrl = "<?php echo base_url() ?>";
+    const BaseUrl = "<?php echo base_url() ?>";
+
   </script>
 
 </head>

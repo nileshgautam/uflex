@@ -28,7 +28,7 @@ const validateMobileNumber = (mobilenumber) => {
 }
 
 // function to validate email.
-const validateEmail=(email)=>{
+const validateEmail = (email) => {
     if (email.match(EMAILPATTERN)) {
         return true;
     }
@@ -40,7 +40,7 @@ const validateEmail=(email)=>{
 
 // function to validate GST number
 const gstNumberValidate = (gstNo) => {
-   
+
     var gstin = gstNo;
     var stateCode = gstin.substring(0, 2);
     var str1 = gstin.substring(2, 7);
@@ -64,7 +64,7 @@ const gstNumberValidate = (gstNo) => {
         error = "Please enter valid GSTIN";
         return error;
     }
-    
+
     // else if ($.trim(gstin) == "" && state.val() == "") {
     //     // alert(state.val());
     //     error = "Invalid state code";
@@ -96,4 +96,7 @@ function ValidateDate() {
         return false
     }
 }
+
+
+
 

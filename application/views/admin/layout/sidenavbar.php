@@ -2,11 +2,11 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-user"></i>
             </div>
-            <div class="sidebar-brand-text mx-3"><?php echo $_SESSION['userInfo']['username']?></div>
+            <div class="sidebar-brand-text mx-3">Admin</div>
         </a>
 
         <!-- Divider -->
@@ -36,32 +36,11 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">users:</h6>
-                    <a class="collapse-item" href="<?php echo base_url('admin/users')?>">users</a>
-                  
+                    <a class="collapse-item" href="<?php echo base_url('admin/users') ?>">users</a>
+
                 </div>
             </div>
         </li>
-
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <!-- <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Utilities</span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Utilities:</h6>
-                    <a class="collapse-item" href="utilities-color.html">Colors</a>
-                    <a class="collapse-item" href="utilities-border.html">Borders</a>
-                    <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                    <a class="collapse-item" href="utilities-other.html">Other</a>
-                </div>
-            </div>
-        </li> -->
-
-  
-
-
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -87,7 +66,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
 
-              
+
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -111,17 +90,11 @@
                             </form>
                         </div>
                     </li>
-
-               
-
-                 
-
                     <div class="topbar-divider d-none d-sm-block"></div>
-
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['userInfo']['username']?></span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo ucfirst($_SESSION['userInfo']['username']) ?></span>
                             <i class="fas fa-user"></i>
                         </a>
                         <!-- Dropdown - User Information -->
@@ -129,17 +102,18 @@
                             <!-- <a class="dropdown-item" href="#">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
-                            </a>
-                            <a class="dropdown-item" href="#">
+                            </a>-->
+                            <a class="dropdown-item" href="<?php echo base_url('admin/setting') ?>">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Settings
                             </a>
+                            <!---
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Activity Log
                             </a> -->
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="<?php echo base_url('logout')?>">
+                            <a class="dropdown-item" href="<?php echo base_url('logout') ?>">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
                             </a>

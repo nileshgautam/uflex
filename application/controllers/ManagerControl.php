@@ -35,11 +35,13 @@ class ManagerControl extends CI_Controller
 
 	public function index()
 	{
-		$data['title'] = 'UFLEX Manager - Dashboard';
-		$this->load->view('layout/header', $data);
-		$this->load->view('manager/layout/sidenavbar');
-		$this->load->view('manager/layout/index');
-		$this->load->view('layout/footer');
+		// $data['title'] = 'UFLEX Manager - Dashboard';
+		// $this->load->view('layout/header', $data);
+		// $this->load->view('manager/layout/sidenavbar');
+		// $this->load->view('manager/layout/index');
+		// $this->load->view('layout/footer');
+
+		redirect(__CLASS__.'/ageing_stock');
 	}
 
 	public function ageing_stock()
@@ -89,6 +91,15 @@ class ManagerControl extends CI_Controller
 		$this->load->view('layout/header', $data);
 		$this->load->view('manager/layout/sidenavbar');
 		$this->load->view('manager/pages/reconciliation-report');
+		$this->load->view('layout/footer');
+	}
+
+	public function change_password()
+	{
+		$data['title'] = 'UFLEX Manager - Change password';
+		$this->load->view('layout/header', $data);
+		$this->load->view('manager/layout/sidenavbar');
+		$this->load->view('manager/pages/change-password');
 		$this->load->view('layout/footer');
 	}
 }

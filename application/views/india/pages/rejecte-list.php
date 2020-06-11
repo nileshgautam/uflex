@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <h6 class="m-0 font-weight-bold text-info ib">Rejected inovice</h6>
-                <a href="<?php echo base_url('sent-invoice') ?>" class="btn btn-warning btn-circle btn-invoice" title="Back">
+                <a href="<?php echo base_url('india/sent-invoice') ?>" class="btn btn-warning btn-circle btn-invoice" title="Back">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 </a>
             </div>

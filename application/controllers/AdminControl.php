@@ -33,11 +33,12 @@ class AdminControl extends CI_Controller
 	 */
 	public function index()
 	{
-		$data['title'] = 'UFLEX Admin- Dashboard';
-		$this->load->view('layout/header', $data);
-		$this->load->view('admin/layout/sidenavbar');
-		$this->load->view('admin/layout/index');
-		$this->load->view('layout/footer');
+		// $data['title'] = 'UFLEX Admin- Dashboard';
+		// $this->load->view('layout/header', $data);
+		// $this->load->view('admin/layout/sidenavbar');
+		// $this->load->view('admin/layout/index');
+		// $this->load->view('layout/footer');
+		redirect(__CLASS__.'/users_list');
 	}
 	public function users_list()
 	{
@@ -81,7 +82,6 @@ class AdminControl extends CI_Controller
 		$result['role'] = $this->CustomModel->getwhere($tableRole, $condition);
 		$result['country'] = $this->CustomModel->selectAll($tableContry);
 		$result['users'] = $this->CustomModel->getwhere($tableName, $where);
-
 
 		$this->load->view('layout/header', $data);
 		$this->load->view('admin/layout/sidenavbar');
@@ -214,13 +214,25 @@ class AdminControl extends CI_Controller
 				$result = $this->CustomModel->update_table($tableUsers, $condition, $data);
 
 				if ($result > 0) {
-					echo  json_encode(array('message' => 'Users details updated successfully. ', 'type' => 'success' , 'path'=>'admin/users'), true);
+					echo  json_encode(array('message' => 'Users details updated successfully. ', 'type' => 'success', 'path' => 'admin/users'), true);
 				} else {
-					echo  json_encode(array('message' => 'Something went wrong Contact IT', 'type' => 'danger','path'=>'admin/users'), true);
+					echo  json_encode(array('message' => 'Something went wrong Contact IT', 'type' => 'danger', 'path' => 'admin/users'), true);
 				}
 			} else {
 				echo  json_encode(array('message' => 'Empty form not allowed.', 'type' => 'danger'), true);
 			}
 		}
+	}
+
+
+	// Funtion to show setting
+
+	public function setting()
+	{
+		$data['title'] = 'UFLEX Admin- Setting';
+		$this->load->view('layout/header', $data);
+		$this->load->view('admin/layout/sidenavbar');
+		$this->load->view('layout/change-password-admin');
+		$this->load->view('layout/footer');
 	}
 }

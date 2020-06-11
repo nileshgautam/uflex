@@ -5,7 +5,6 @@
             <div class="card">
                   <div class="card-header">
                         <h6 class="m-0 font-weight-bold text-info ib">Add invoice</h6>
-
                         <a href="<?php echo base_url('london/stock-invoice') ?>" class="btn btn-warning btn-circle btn-invoice" title="Back">
                               <i class="fa fa-arrow-left" aria-hidden="true"></i>
                         </a>

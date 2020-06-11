@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary ib">Invoice List</h6>
+            <h6 class="m-0 font-weight-bold text-primary ib">Availble Stock</h6>
             <a href="<?php echo base_url('london/upload-invoice')?>" class="btn btn-warning btn-circle btn-invoice btn-space" title="Upload multiple invoice">
                 <i class="fa fa-upload" aria-hidden="true"></i>
             </a>

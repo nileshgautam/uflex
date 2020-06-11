@@ -6,7 +6,7 @@
             <div class="sidebar-brand-icon">
                 <i class="fas fa-user"></i>
             </div>
-            <div class="sidebar-brand-text mx-3"><?php echo $_SESSION['userInfo']['username'] ?></div>
+            <div class="sidebar-brand-text mx-3"><?php echo ucfirst('INDIA') ?></div>
         </a>
 
         <!-- Divider -->
@@ -36,10 +36,10 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Enter Invoice</h6>
                     
-                    <a class="collapse-item" href="<?php echo base_url('invoice')?>">Invoice</a>
-                    <a class="collapse-item" href="<?php echo base_url('sent-invoice')?>">Sent Invoice</a>
-                    <!-- <a class="collapse-item" href="<?php echo base_url('edit-invoice')?>">Edit</a>
-                    <a class="collapse-item" href="<?php echo base_url('upload-multiple-invoce')?>">Upload Multiple</a> -->
+                    <a class="collapse-item" href="<?php echo base_url('india/invoice')?>">Invoice</a>
+                    <a class="collapse-item" href="<?php echo base_url('india/sent-invoice')?>">Sent Invoice</a>
+                    <!-- <a class="collapse-item" href="<?php echo base_url('india/edit-invoice')?>">Edit</a>
+                    <a class="collapse-item" href="<?php echo base_url('india/upload-multiple-invoce')?>">Upload Multiple</a> -->
 
                 </div>
             </div>
@@ -67,7 +67,7 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - Alerts -->
                     <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link" href="<?php echo base_url('sent-invoice')?>" title="Rejected invoice" id="alertsDropdown" role="button">
+                        <a class="nav-link" href="<?php echo base_url('india/sent-invoice')?>" title="Rejected invoice" id="alertsDropdown" role="button">
                             <i class="fas fa-bell fa-fw"></i>
                             <!-- Counter - Alerts -->
                             <span class="badge badge-danger badge-counter" ><?php echo (isset($count))?$count.'+':''?></span>
@@ -127,15 +127,15 @@
                             <!-- <a class="dropdown-item" href="#">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
-                            </a>
-                            <a class="dropdown-item" href="#">
+                            </a>-->
+                            <a class="dropdown-item" href="<?php echo base_url('india/setting')?>">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Settings
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <!-- <a class="dropdown-item" href="#">
                                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Activity Log
-                            </a> -->
+                            </a>  -->
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<?php echo base_url('logout')?>" >
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

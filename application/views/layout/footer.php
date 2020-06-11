@@ -26,32 +26,35 @@
 
 <!-- Bootstrap core JavaScript-->
 <script src=" <?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
+
 <script src=" <?php echo base_url() ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 
 <!-- Core plugin JavaScript-->
 <script src=" <?php echo base_url() ?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
 <script src=" <?php echo base_url() ?>assets/js/sb-admin-2.min.js"></script>
-
-
-<!-- Page level plugins -->
-<!-- <script src=" <?php echo base_url() ?>assets/vendor/chart.js/Chart.min.js"></script> -->
+<!-- datepicker -->
+<script src="<?php echo base_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js') ?>"></script>
 
 <!-- Alert Box -->
 <script src="<?php echo base_url('assets/custom/notify/bootstrap-notify.min.js') ?>"></script>
-  <script src="<?php echo base_url('assets/custom/notify/MyScriptLibrary.js') ?>"></script>
+<script src="<?php echo base_url('assets/custom/notify/MyScriptLibrary.js') ?>"></script>
 
 <!-- datatable -->
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"></script>
 
+<!-- custom js -->
+<script src="<?php echo base_url() ?>assets/custom/js/add-invoice-product.js"></script>
 <script src="<?php echo base_url() ?>assets/custom/js/user-validation.js"></script>
 <script src="<?php echo base_url() ?>assets/custom/js/validation.js"></script>
+<script src="<?php echo base_url('assets/custom/js/invoice.js') ?>"></script>
 
 
 <script>
-  $(function(){
+  $(function() {
     $('.dataTable').dataTable();
   });
 </script>

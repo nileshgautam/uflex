@@ -6,7 +6,7 @@
                         <a href="<?php echo base_url('sample_file/invoceUploadformat.csv')?>" class="font-weight-bold text-success ml-25">Download Sample file for Invoices
                         <i class="fa fa-download" aria-hidden="true"></i>
                         </a>
-                        <a href="<?php echo base_url('invoice') ?>" class="btn btn-warning btn-circle btn-invoice" title="Back">
+                        <a href="<?php echo base_url('india/invoice') ?>" class="btn btn-warning btn-circle btn-invoice" title="Back">
                               <i class="fa fa-arrow-left" aria-hidden="true"></i>
                         </a>
                   </div>

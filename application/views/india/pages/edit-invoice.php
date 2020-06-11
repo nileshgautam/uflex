@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <h6 class="m-0 font-weight-bold text-info ib">Edit</h6>
-                <a href="<?php echo base_url('invoice') ?>" class="btn btn-warning btn-circle btn-invoice" title="Back">
+                <a href="<?php echo base_url('india/invoice') ?>" class="btn btn-warning btn-circle btn-invoice" title="Back">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                 </a>
             </div>
@@ -42,7 +42,7 @@
                     <input type="hidden" name="invoice-id" value="<?php echo (isset($invoice) ? $invoice[0]['id'] : ''); ?>">
                     <div class="btn-send">
                         <button type="submit" class="btn btn-success btn-space">Submit</button>
-                        <a href="<?php echo base_url('invoice') ?>" class="btn btn-danger btn-space text-white">Cancel</a>
+                        <a href="<?php echo base_url('india/invoice') ?>" class="btn btn-danger btn-space text-white">Cancel</a>
                     </div>
                 </form>
             </div>

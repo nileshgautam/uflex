@@ -2,10 +2,10 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-info ib">Invoice List</h6>
-            <a href="<?php echo base_url('upload-multiple-invoce') ?>" class="btn btn-warning btn-circle btn-invoice btn-space" title="Upload multiple invoice">
+            <a href="<?php echo base_url('india/upload-multiple-invoce') ?>" class="btn btn-warning btn-circle btn-invoice btn-space" title="Upload multiple invoice">
                 <i class="fa fa-upload" aria-hidden="true"></i>
             </a>
-            <a href="<?php echo base_url('add-invoice') ?>" class="btn btn-info btn-circle btn-invoice btn-space" title="Add Invoice">
+            <a href="<?php echo base_url('india/add-invoice') ?>" class="btn btn-info btn-circle btn-invoice btn-space" title="Add Invoice">
                 <i class="fas fa-plus"></i>
             </a>
         </div>

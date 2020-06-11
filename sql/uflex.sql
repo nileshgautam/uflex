@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2020 at 03:53 PM
+-- Generation Time: Jun 11, 2020 at 03:57 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -54,7 +54,10 @@ INSERT INTO `london_sold_stock` (`id`, `batch_number`, `invoice_number`, `item_c
 (12, '2020-05-28', 'INV20200609', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 0, 0, '2020-06-09', 'London- outlet ', '2020-06-09'),
 (13, '2020-05-30', 'INV20200609', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 150, 0, 0, '2020-06-09', 'London- outlet ', '2020-06-09'),
 (14, '2020-05-31', 'INV20200609', 'YLG500V5', 'TILDA LONG GRAN 500G', 12, 0, 0, '2020-06-09', 'London- outlet ', '2020-06-09'),
-(15, '2020-05-31', 'INv001', 'YLG500V5', 'TILDA LONG GRAN 500G', 20, 0, 0, '2020-06-25', 'London- outlet ', '2020-06-09');
+(15, '2020-05-31', 'INv001', 'YLG500V5', 'TILDA LONG GRAN 500G', 20, 0, 0, '2020-06-25', 'London- outlet ', '2020-06-09'),
+(16, '2020-06-18', 'INV', 'y004', 'lorem epsum', 200, 0, 0, '2020-07-01', 'John Doe', '2020-06-11'),
+(17, '2022-05-28', 'inb', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 0, 0, '2020-07-11', 'John Doe', '2020-06-11'),
+(18, '2023-05-28', 'inv200', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 500, 0, 0, '2020-06-24', 'John Doe', '2020-06-11');
 
 -- --------------------------------------------------------
 
@@ -88,7 +91,24 @@ INSERT INTO `london_stock` (`id`, `invoice_number`, `item_code`, `item_descripti
 (52, 'INVC200202103', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 200, 50, 14000, 70, 'London- outlet ', '2020-06-08 10:21:45', '2020-06-09', '2020-05-30'),
 (53, 'INVC200202104', 'YLG500V4', 'TILDA LONG GRAN 200G', 200, 200, 6000, 30, 'London- outlet ', '2020-06-08 10:21:49', '0000-00-00', '2020-05-31'),
 (57, 'INV2705202', 'P002', 'lorem epsum', 5, 200, 50, 20, 'London- outlet ', '2020-06-09 13:53:26', '0000-00-00', '2020-06-25'),
-(58, 'INV270', 'y004', 'lorem epsum', 500, 500, 10000, 200, 'London- outlet ', '2020-06-09 14:03:33', '0000-00-00', '2020-06-18');
+(58, 'INV270', 'y004', 'lorem epsum', 500, 300, 10000, 200, 'London- outlet ', '2020-06-09 14:03:33', '2020-06-11', '2020-06-18'),
+(59, 'INVC200202102', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 200, 60000, 30, 'John Doe', '2020-06-11 18:43:07', '0000-00-00', '2020-05-29'),
+(60, 'INVC200202102', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 500, 500, 20000, 40, 'John Doe', '2020-06-11 18:43:17', '0000-00-00', '2020-05-29'),
+(61, 'INV2705200003', 'Y0002', 'Lorem epsum', 15, 15, 150, 10, 'John Doe', '2020-06-11 18:43:17', '0000-00-00', '2020-07-01'),
+(62, 'INVC200202101', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 1000, 1000, 60000, 60, 'John Doe', '2020-06-11 18:43:17', '0000-00-00', '2021-05-28'),
+(63, 'INV001', 'Yoo2', 'abcd', 10, 10, 820, 5, 'John Doe', '2020-06-11 18:43:17', '0000-00-00', '2020-07-02'),
+(64, 'INVC200202102', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 0, 6000, 30, 'John Doe', '2020-06-11 18:43:26', '2020-06-11', '2022-05-28'),
+(65, 'INVC200202103', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 500, 0, 20000, 40, 'John Doe', '2020-06-11 18:43:26', '2020-06-11', '2023-05-28'),
+(66, 'INVC200202104', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 200, 200, 14000, 70, 'John Doe', '2020-06-11 18:43:26', '0000-00-00', '2024-05-28'),
+(67, 'INVC200202200', 'YLG500V4', 'TILDA LONG GRAN 500G', 500, 0, 20000, 40, 'John Doe', '2020-06-11 19:06:51', '0000-00-00', '2020-05-28'),
+(68, 'INVC200202201', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 1000, 0, 60000, 60, 'John Doe', '2020-06-11 19:06:51', '0000-00-00', '2020-05-28'),
+(69, 'INVC200202202', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 0, 6000, 30, 'John Doe', '2020-06-11 19:06:51', '0000-00-00', '2020-05-29'),
+(70, 'INVC200202203', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 500, 0, 20000, 40, 'John Doe', '2020-06-11 19:06:51', '0000-00-00', '2020-05-29'),
+(71, 'INVC200202204', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 200, 0, 14000, 70, 'John Doe', '2020-06-11 19:06:51', '0000-00-00', '2020-05-30'),
+(72, 'INVC200202205', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 0, 6000, 30, 'John Doe', '2020-06-11 19:06:51', '0000-00-00', '2020-05-31'),
+(73, 'INVC200202206', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 0, 6000, 30, 'John Doe', '2020-06-11 19:06:51', '0000-00-00', '2020-05-31'),
+(74, 'INVC200202207', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 0, 6000, 30, 'John Doe', '2020-06-11 19:06:51', '0000-00-00', '2020-06-16'),
+(75, 'INVC200202105', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 200, 6000, 30, 'John Doe', '2020-06-11 19:10:49', '0000-00-00', '2025-05-28');
 
 -- --------------------------------------------------------
 
@@ -48365,13 +48385,21 @@ CREATE TABLE `master_invoice` (
 INSERT INTO `master_invoice` (`id`, `invoice_number`, `doi`, `product_code`, `product_description`, `product_qty`, `product_rate`, `product_amount`, `entery_datetime`, `entered_by`, `send_status`, `reject_reason`) VALUES
 (429, 'INVC200202100', '2020-05-28', 'YLG500V4', 'TILDA LONG GRAN 500G', 500, 40, 2000, '2020-06-05 15:24:36', 'India outlet', 30, ''),
 (430, 'INVC200202100', '2020-05-28', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 1000, 60, 60000, '2020-06-05 15:24:37', 'India outlet', 20, 'weight not matched'),
-(431, 'INVC200202102', '2020-05-29', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 30, 6000, '2020-06-05 15:24:37', 'India outlet', 0, ''),
-(432, 'INVC200202102', '2020-05-29', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 500, 40, 20000, '2020-06-05 15:24:37', 'India outlet', 10, ''),
+(431, 'INVC200202102', '2020-05-29', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 30, 60000, '2020-06-11 18:06:36', 'Raj Sharma', 30, ''),
+(432, 'INVC200202102', '2020-05-29', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 500, 40, 20000, '2020-06-05 15:24:37', 'India outlet', 30, ''),
 (433, 'INVC200202103', '2020-05-30', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 200, 70, 14000, '2020-06-05 15:24:37', 'India outlet', 30, ''),
 (434, 'INVC200202104', '2020-05-31', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 30, 6000, '2020-06-05 15:24:37', 'India outlet', 30, ''),
 (435, 'INVC200202105', '2020-05-31', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 30, 6000, '2020-06-05 15:24:37', 'India outlet', 30, ''),
 (436, 'INVC200202106', '2020-05-28', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 30, 6000, '2020-06-05 15:24:37', 'India outlet', 30, ''),
-(437, 'INV2705200003', '2020-07-01', 'Y0002', 'Lorem epsum', 15, 10, 150, '2020-06-05 15:26:43', 'India outlet', 0, '');
+(437, 'INV2705200003', '2020-07-01', 'Y0002', 'Lorem epsum', 15, 10, 150, '2020-06-05 15:26:43', 'India outlet', 30, ''),
+(438, 'INV001', '2020-07-02', 'Yoo2', 'abcd', 10, 5, 820, '2020-06-11 18:31:19', 'Raj Sharma', 30, ''),
+(439, 'INVC200202101', '2021-05-28', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 1000, 60, 60000, '2020-06-11 18:33:34', 'Raj Sharma', 30, ''),
+(440, 'INVC200202102', '2022-05-28', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 30, 6000, '2020-06-11 18:33:34', 'Raj Sharma', 30, ''),
+(441, 'INVC200202103', '2023-05-28', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 500, 40, 20000, '2020-06-11 18:33:34', 'Raj Sharma', 30, ''),
+(442, 'INVC200202104', '2024-05-28', 'YELG500V4', 'TILDA EASY COOK LONG GRAN 500G', 200, 70, 14000, '2020-06-11 18:33:34', 'Raj Sharma', 30, ''),
+(443, 'INVC200202105', '2025-05-28', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 30, 6000, '2020-06-11 18:33:34', 'Raj Sharma', 30, ''),
+(444, 'INVC200202106', '2026-05-28', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 30, 6000, '2020-06-11 18:33:34', 'Raj Sharma', 0, ''),
+(445, 'INVC200202107', '2027-05-28', 'YLG500V4', 'TILDA LONG GRAN 500G', 200, 30, 6000, '2020-06-11 18:33:34', 'Raj Sharma', 0, '');
 
 -- --------------------------------------------------------
 
@@ -52536,11 +52564,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `dob`, `gender`, `email`, `address`, `zip_pin`, `mobile`, `city`, `state`, `country`, `role`, `joining_date`, `code`, `active`) VALUES
-(1, 'John Doe', '123456', 'John', 'Doe', '2006-06-10', 'male', 'london@uflex.com', 'london', '', '7894561230', 'London', 'London', 'United Kingdom', 'User-LDN', '2019-12-04', '', 0),
-(2, 'Raj', 'india', 'Raj', 'Sharma', '2020-06-11', 'male', 'india@uflex.com', 'ADDDDD', '7894560', '7894561230', 'Noida', 'Uttar Pradesh', 'India', 'User-IND', '2020-06-12', '', 0),
-(3, 'Alex', 'manager', 'Alex', 'Jones', '2019-12-16', 'male', 'manager@uflex.com', 'AAAAA', '', '7894561230', 'Noida', 'Uttar Pradesh', 'India', 'Manager', '2020-06-17', '', 0),
+(1, 'John Doe', 'ldn@123', 'John', 'Doe', '2006-06-10', 'male', 'london@uflex.com', 'london', '', '7894561230', 'London', 'London', 'United Kingdom', 'User-LDN', '2019-12-04', '', 0),
+(2, 'Raj', 'india@123', 'Raj', 'Sharma', '2020-06-11', 'male', 'india@uflex.com', 'ADDDDD', '7894560', '7894561230', 'Noida', 'Uttar Pradesh', 'India', 'User-IND', '2020-06-12', '', 0),
+(3, 'Alex', 'manager@123', 'Alex', 'Jones', '2019-12-16', 'female', 'manager@uflex.com', 'AAAAA', '', '7894561230', 'Noida', 'Uttar Pradesh', 'India', 'Manager', '2020-06-17', '', 0),
 (4, 'admin', 'admin', 'admin', '', '0000-00-00', '', 'admin@uflex.com', '', '', '', '', '', '', 'admin', '0000-00-00', '', 0),
-(5, '', '789456', 'Hm', 'D', '2020-06-11', 'male', 'h@mail.com', 'abcd', '789', '7894561230', 'Noida', 'Uttar Pradesh', 'India', 'User-LDN', '2020-06-11', '', 0);
+(5, '', '789456', 'Hm', 'D', '2020-06-11', 'male', 'h@mail.com', 'abcd', '789', '7894561230', 'Noida', 'Uttar Pradesh', 'India', 'User-LDN', '2020-06-11', '', 0),
+(6, '', 'abcd', 'a', 'b', '2020-06-12', 'female', 'info@uflex.com', 'dddd', '201301', '7894561230', 'Dabwali', 'Haryana', 'India', 'User-IND', '2020-06-19', '', 0);
 
 -- --------------------------------------------------------
 
@@ -52631,13 +52660,13 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `london_sold_stock`
 --
 ALTER TABLE `london_sold_stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `london_stock`
 --
 ALTER TABLE `london_stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `master_cities`
@@ -52655,7 +52684,7 @@ ALTER TABLE `master_countries`
 -- AUTO_INCREMENT for table `master_invoice`
 --
 ALTER TABLE `master_invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=438;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=446;
 
 --
 -- AUTO_INCREMENT for table `master_product`
@@ -52673,7 +52702,7 @@ ALTER TABLE `master_states`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user_role`
